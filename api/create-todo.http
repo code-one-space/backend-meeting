@@ -1,0 +1,6 @@
+# POST http://localhost:7071/api/todos
+POST https://sep-api.azurewebsites.net/api/todos
+
+{
+    "done": true
+}
