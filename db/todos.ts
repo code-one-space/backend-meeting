@@ -2,7 +2,6 @@ import { ObjectId } from "mongodb";
 
 export const todoMap = new Map<ObjectId,Todo>();
 
-
 export interface Todo {
     id?: ObjectId
     name: string;
