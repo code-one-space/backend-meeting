@@ -8,7 +8,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         if (!newTodo.name || newTodo.name.trim() === "") {
             throw new Error("Could not create todo, because [name] is missing")
         }
-        const todo = await addTodo(newTodo)
+        const todo =  addTodo(newTodo)
         context.res = {
             status: 200,
             body: todo
