@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
-import { collections } from "./mongodb-client";
+
+export const todoMap = new Map<ObjectId,Todo>();
 
 
 export interface Todo {
@@ -9,18 +10,14 @@ export interface Todo {
     done: boolean;
 }
 
-export async function findAllTodos(): Promise<Todo[]> {
-    const todos = (await collections.todos.find({}).toArray()) as unknown as Todo[]
-    return todos;
+export function findAllTodos(): Todo[] {
+    return Array.from(todoMap.values());
 }
 
-export async function addTodo(newTodo: Todo): Promise<Todo> {
+export function addTodo(newTodo: Todo): Todo {
     newTodo.createdAt = new Date();
-    const result = await collections.todos.insertOne(newTodo)
-    if (!result.acknowledged) {
-        throw Error("Could not add todo")
-    } else {
-        console.log({ newTodo })
-        return newTodo;
-    }
+    let id = new ObjectId();
+    newTodo.id = id;
+    todoMap.set(id, newTodo);
+    return newTodo;
 }
