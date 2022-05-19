@@ -6,9 +6,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.log('Delete todo with id: [%d].', id);
 
     deleteBy(id);
-    
+
     context.res = {
-        // status: 200, /* Defaults to 200 */
         status: 204
     };
 
