@@ -1,7 +1,5 @@
 create-meeting: https://sep-nojo-test.azurewebsites.net/api/meetings
-delete-todo: https://sep-nojo-test.azurewebsites.net/api/todos/%7Bid%7D
 get-meeting: https://sep-nojo-test.azurewebsites.net/api/meetings/%7Bid%7D
 join-meeting: https://sep-nojo-test.azurewebsites.net/api/meetings/join
 leave-meeting: https://sep-nojo-test.azurewebsites.net/api/meetings/leave
 list-meetings: https://sep-nojo-test.azurewebsites.net/api/meetings
-patch-todo: https://sep-nojo-test.azurewebsites.net/api/todos/%7Bid%7D

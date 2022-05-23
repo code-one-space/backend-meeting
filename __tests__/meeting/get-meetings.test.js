@@ -1,5 +1,5 @@
 const axios = require("axios")
-const { TestMeetingID } = require("../config")
+const { MeetingId } = require("../config").config
 
 test("Get all meetings from database", async () => {
     let data = await axios.get("https://sep-nojo-test.azurewebsites.net/api/meetings/")
@@ -8,6 +8,6 @@ test("Get all meetings from database", async () => {
 })
 
 test("Get specific meeting by id from database", async () => {
-    meeting = await axios.get(`https://sep-nojo-test.azurewebsites.net/api/meetings/${TestMeetingID}`)
+    meeting = await axios.get(`https://sep-nojo-test.azurewebsites.net/api/meetings/${ MeetingId }`)
     expect(Object.keys(meeting).length).not.toBe(0);
 })
