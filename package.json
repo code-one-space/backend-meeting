@@ -7,9 +7,10 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "jest --coverage --coverageDirectory __tests__/coverage --config jest.config.json"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "mongodb": "^4.5.0",
     "uuid": "^8.3.2"
   },
