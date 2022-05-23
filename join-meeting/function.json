@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "todos",
+      "route": "meetings/join",
       "methods": [
         "post"
       ]
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/create-todo-item/index.js"
+  "scriptFile": "../dist/join-meeting/index.js"
 }
