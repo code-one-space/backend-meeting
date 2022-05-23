@@ -4,17 +4,26 @@ import { ObjectId } from "mongodb";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
-    const meetingId = new ObjectId(req.body.meetingId)
-    const member = req.body.member as Member;
     try {
+
+        const meetingId = new ObjectId(req.body.meetingId)
+        const memberName = req.body.memberName ?? "";
+        
         if (!meetingId)
             throw new Error("Could not join meeting, because [meetingId] is missing")
 
-        if(!member || !member.name)
-            throw new Error("Could not join meeting, because [member] is missing")
+        if(!memberName || memberName.trim().length == 0)
+            throw new Error("Could not join meeting, because [memberName] is missing")
 
-        member.id = new ObjectId()
+        let id = new ObjectId()
+
+        let member = {
+            id: id,
+            name: memberName
+        }
         const meeting = await joinMeeting(meetingId, member)
+        meeting.memberId = id
+
         context.res = {
             status: 200,
             body: meeting

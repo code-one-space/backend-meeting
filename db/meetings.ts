@@ -17,9 +17,11 @@ export interface Tool {
 }
 
 export interface Meeting {
-    owner?: Member;
-    id?: ObjectId
-    name: string;
+    creator?: Member;
+    creatorName?: string;
+    id?: ObjectId;
+    memberId?: ObjectId;
+    meetingName: string;
     createdAt: Date;
     done: boolean;
     members: Array<Member>;
@@ -27,17 +29,21 @@ export interface Meeting {
 }
 
 export async function findAllMeetings(): Promise<Meeting[]> {
+    
     const meetings = (await collections.meetings.find({}).toArray()) as unknown as Meeting[]
     return meetings;
 }
 
-export async function addMeeting(newMeeting: Meeting, owner: Member): Promise<Meeting> {
+export async function addMeeting(newMeeting: Meeting, creator: Member): Promise<Meeting> {
+    
     newMeeting.createdAt = new Date();
-    owner.id = new ObjectId();
-    newMeeting.members = [owner];
+    newMeeting.members = [creator];
     newMeeting.tools = [];
-    delete newMeeting.owner;
+
+    delete newMeeting.creatorName;
+
     const result = await collections.meetings.insertOne(newMeeting)
+
     if (!result.acknowledged) {
         throw Error("Could not add todo")
     } else {
