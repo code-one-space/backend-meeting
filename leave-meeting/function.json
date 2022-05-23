@@ -5,9 +5,9 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "todos/{id}",
+      "route": "meetings/leave",
       "methods": [
-        "get"
+        "post"
       ]
     },
     {
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/get-todo/index.js"
+  "scriptFile": "../dist/leave-meeting/index.js"
 }

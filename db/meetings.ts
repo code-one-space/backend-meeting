@@ -47,12 +47,34 @@ export async function addMeeting(newMeeting: Meeting, owner: Member): Promise<Me
 }
 
 export async function joinMeeting(meetingId: ObjectId, member: Member) {
-    const result = await collections.meetings.updateOne({ _id: meetingId}, {
+    
+    await collections.meetings.updateOne({ _id: meetingId}, {
         $push: {
             members: {
-                member
+                ...member
             }
         }
     })
+    return await collections.meetings.findOne({ _id: meetingId })
+}
+
+export async function leaveMeeting(meetingId: ObjectId, memberId: ObjectId) {
+    
+    await collections.meetings.updateOne({ _id: meetingId}, {
+        $pull: {
+            members: {
+                id: memberId 
+            }
+        }
+    })
+
+    await collections.meetings.deleteOne({
+        members: {
+            $size: 0
+        } 
+    })
+}
+
+export async function getSingleMeeting(meetingId: ObjectId) {
     return await collections.meetings.findOne({ _id: meetingId })
 }
