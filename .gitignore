@@ -1,3 +1,7 @@
+# credentials
+db/mongodb-client.ts
+.vscode
+
 # Logs
 logs
 *.log
