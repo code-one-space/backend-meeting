@@ -8,10 +8,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     const memberId = new ObjectId(req.body.memberId);
     try {
         if (!req.body.memberId)
-            throw new Error("Could not join meeting, because [meetingId] is missing")
+            throw new Error("Could not leave meeting, because [meetingId] is missing")
 
         if(!req.body.meetingId)
-            throw new Error("Could not join meeting, because [member] is missing")
+            throw new Error("Could not leave meeting, because [member] is missing")
 
         await leaveMeeting(meetingId, memberId)
         context.res = {
