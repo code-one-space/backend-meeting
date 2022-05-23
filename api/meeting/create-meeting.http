@@ -1,0 +1,7 @@
+# POST http://localhost:7071/api/todos
+POST http://localhost:7071/api/meetings
+
+{
+    "meetingName": "Example Meeting",
+    "creatorName": "Michael"
+}
