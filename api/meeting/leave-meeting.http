@@ -5,3 +5,12 @@ POST http://localhost:7071/api/meetings/leave
     "meetingId": "628b61f1a61e94b859575a8b",
     "memberId": "628beb8a75efa9320a3f54ba"
 }
+
+###
+
+POST https://sep-nojo-test.azurewebsites.net/api/meetings/leave
+
+{
+    "meetingId": "628b61f1a61e94b859575a8b",
+    "memberId": "Nojo"
+}
