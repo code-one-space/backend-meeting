@@ -14,9 +14,9 @@ post:
       content: 
         "application/json":
           schema:
-            type: object
-            properties:
-              $ref: "../../definitions/Meeting.yaml"
+            $ref: "../../definitions/Meeting.yaml"
+          example:
+            $ref: "../../examples/Meeting.yaml"
     422:
       description: Invalid or missing required field
       content: 

@@ -10,9 +10,9 @@ post:
         schema:
           type: object
           properties:
-            devlock:
+            secret:
               type: string
-              example: Anything
+              example: Feature only available to developers.
   responses:
     200:
       description: OK

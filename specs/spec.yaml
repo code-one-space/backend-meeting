@@ -33,9 +33,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  $ref: "#/components/schemas/Meeting"
+                $ref: "#/components/schemas/Meeting"
+              example:
+                $ref: "#/components/examples/exMeeting"
         "422":
           description: Invalid or missing required field
           content:
@@ -170,6 +170,34 @@ paths:
                   error:
                     type: string
                     example: Error description
+  /api/meetings/clear:
+    post:
+      summary: Clear Meeting
+      description: Clears all meetings from the database (DEV ONLY)
+      tags:
+        - DEV ONLY
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                secret:
+                  type: string
+                  example: Feature only available to developers.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: done message
+                    example: done
 servers:
   - url: https://sep-nojo-test.azurewebsites.net/
     description: Azure deployment
