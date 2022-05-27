@@ -4,3 +4,7 @@ GET http://localhost:7071/api/meetings
 ###
 
 GET https://sep-nojo-test.azurewebsites.net/api/meetings
+
+###
+
+GET https://sep-nojo-test.azurewebsites.net/api/meetings/meow

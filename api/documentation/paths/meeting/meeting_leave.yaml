@@ -1,0 +1,35 @@
+post:
+  summary: Leave meeting
+  tags:
+  - Meeting
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          meetingId:
+            type: string
+          memberId: 
+            type: string
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Leave message
+                example: Left meeting successfuly
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

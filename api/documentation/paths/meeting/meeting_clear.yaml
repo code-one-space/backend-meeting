@@ -1,0 +1,24 @@
+post:
+  summary: Clear Meeting
+  tags:
+  - Meeting
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          devlock:
+            type: string
+            example: Anything
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: done message
+                example: done

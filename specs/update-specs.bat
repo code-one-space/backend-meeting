@@ -1,0 +1,1 @@
+speccy resolve ../api/documentation/index.yaml -o spec.yaml

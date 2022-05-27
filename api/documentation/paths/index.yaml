@@ -1,0 +1,10 @@
+/api/meetings:
+  $ref: ./meeting/meetings.yaml
+/api/meetings/{id}:
+  $ref: ./meeting/meeting.yaml
+/api/meetings/join:
+  $ref: ./meeting/meeting_join.yaml
+/api/meetings/leave:
+  $ref: ./meeting/meeting_leave.yaml
+/api/meetings/clear:
+  $ref: ./meeting/meeting_clear.yaml

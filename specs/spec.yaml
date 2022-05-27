@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  version: 1.1.0
+  title: Meetings-Begleitapp API
+  description: This is the documentation of the Meetings-Begleitapp API. If you
+    encountered a bug, please contact us with the subject "API - Bug report" and
+    provide the request you sent, the expected result and the actual result.<br>
+    Bug report formular&colon; <a
+    href="mailto:support@codeone.space?subject=API%20-%20Bug%20report&body=Endpoint%3A%0D%0AAccesstoken%20%2F%20Scopes%3A%0D%0A%0D%0A(optional)%20Request%20header%3A%0D%0ARequest%20body%3A%0D%0A%0D%0AExpected%20Result%3A%0D%0A%0D%0AActual%20Result%3A">
+    Report a bug</a>
+  x-logo:
+    url: https://drive.google.com/uc?export=view&id=1ci4QIcN1Dbdc_6uqJVzkWt1JfpolCjMv
+    backgroundColor: "#FFFFFF"
+    altText: "Code: One"
+  contact:
+    name: "Code: One - Support"
+    email: support@codeone.space
+paths:
+  /api/meetings:
+    post:
+      summary: Create Meeting
+      tags:
+        - Meeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Meeting"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $ref: "#/components/schemas/Meeting"
+        "422":
+          description: Invalid or missing required field
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: creatorName is missing
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+    get:
+      summary: Get all meetings
+      description: Returns all meetings
+      tags:
+        - Meeting
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Meeting"
+  "/api/meetings/{id}":
+    get:
+      summary: Get single meeting
+      description: Returns a meeting by its id from the database
+      tags:
+        - Meeting
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Meeting"
+        "400":
+          description: Meeting not found or invalid id passed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Id needs to be 24 characters long
+  /api/meetings/join:
+    post:
+      summary: Join meeting
+      tags:
+        - Meeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              meetingId:
+                type: string
+              memberName:
+                type: string
+                example: Hans Dampf
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    $ref: "#/components/schemas/Meeting"
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/meetings/leave:
+    post:
+      summary: Leave meeting
+      tags:
+        - Meeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              meetingId:
+                type: string
+              memberId:
+                type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Leave message
+                    example: Left meeting successfuly
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/meetings/clear:
+    post:
+      summary: Clear Meeting
+      tags:
+        - Meeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              devlock:
+                type: string
+                example: Anything
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: done message
+                    example: done
+servers:
+  - url: https://sep-nojo-test.azurewebsites.net/
+    description: Azure deployment
+  - url: http://localhost:7071/
+    description: Development server
+components:
+  examples:
+    exMeeting:
+      value:
+        id: 60b78980a2ae9e260ca469ba
+        creator:
+          id: 60b78980a2ae9e260ca469bc
+          name: Hans Dampf
+        creatorName: Hans Dampf
+        memberId: 60b78980a2ae9e260ca469bc
+        meetingName: Hans Dampf's Meeting
+        createdAt: 2022-05-27T16:49:16.316Z
+        done: false
+        members:
+          - id: 60b78980a2ae9e260ca469bc
+            name: Hans Dampf
+        tools: []
+  schemas:
+    Meeting:
+      type: object
+      properties:
+        id:
+          type: string
+        creator:
+          type: object
+          properties:
+            id: string
+            name: string
+        creatorName:
+          type: string
+        memberId:
+          type: string
+        meetingName:
+          type: string
+        createdAt:
+          type: string
+        done:
+          type: boolean
+        members:
+          type: array
+        tools:
+          type: array
+      required:
+        - creatorName
+        - meetingName
+      example:
+        id: 60b78980a2ae9e260ca469ba
+        creator:
+          id: 60b78980a2ae9e260ca469bc
+          name: Hans Dampf
+        creatorName: Hans Dampf
+        memberId: 60b78980a2ae9e260ca469bc
+        meetingName: Hans Dampf's Meeting
+        createdAt: 2022-05-27T16:49:16.316Z
+        done: false
+        members:
+          - id: 60b78980a2ae9e260ca469bc
+            name: Hans Dampf
+        tools: []

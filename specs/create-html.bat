@@ -1,0 +1,1 @@
+redoc-cli bundle spec.yaml -o ../public/index.html

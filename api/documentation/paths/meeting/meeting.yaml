@@ -1,0 +1,23 @@
+get:
+  summary: Get single meeting
+  description: Returns a meeting by its id from the database
+  tags:
+  - Meeting
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            type: object
+            $ref: "../../definitions/Meeting.yaml"
+    400:
+      description: Meeting not found or invalid id passed
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Id needs to be 24 characters long

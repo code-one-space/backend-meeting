@@ -1,0 +1,54 @@
+post:
+  summary: Create Meeting
+  tags:
+  - Meeting
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../definitions/Meeting.yaml"
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              $ref: "../../definitions/Meeting.yaml"
+    422:
+      description: Invalid or missing required field
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "creatorName is missing"
+    500:
+      description: Internal server error
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description
+                
+get:
+  summary: Get all meetings
+  description: Returns all meetings
+  tags:
+  - Meeting
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            type: array
+            items:
+              $ref: "../../definitions/Meeting.yaml"

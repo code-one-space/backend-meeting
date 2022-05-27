@@ -1,0 +1,15 @@
+openapi: "3.0.3"
+info:
+  $ref: ./info/index.yaml
+paths:
+  $ref: ./paths/index.yaml
+servers:
+- url: https://sep-nojo-test.azurewebsites.net/
+  description: Azure deployment
+- url: http://localhost:7071/
+  description: Development server
+components:
+  examples:
+    $ref: ./examples/index.yaml
+  schemas:
+    $ref: ./definitions/index.yaml

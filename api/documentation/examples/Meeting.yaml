@@ -1,0 +1,18 @@
+value:
+  id: 60b78980a2ae9e260ca469ba
+  creator: {
+    id: 60b78980a2ae9e260ca469bc,
+    name: Hans Dampf
+  }
+  creatorName: Hans Dampf
+  memberId: 60b78980a2ae9e260ca469bc
+  meetingName: Hans Dampf's Meeting
+  createdAt: "2022-05-27T16:49:16.316Z"
+  done: false
+  members: [
+    {
+      id: 60b78980a2ae9e260ca469bc,
+      name: Hans Dampf
+    }
+  ]
+  tools: []

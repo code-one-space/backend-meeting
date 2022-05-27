@@ -12,5 +12,5 @@ POST https://sep-nojo-test.azurewebsites.net/api/meetings
 
 {
     "meetingName": "Meow Deow's Meeting",
-    "creatorName": "Meow Deow"
+    "creatorName": "Me"
 }

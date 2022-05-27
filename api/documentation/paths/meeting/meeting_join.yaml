@@ -1,0 +1,34 @@
+post:
+  summary: Join meeting
+  tags:
+  - Meeting
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          meetingId:
+            type: string
+          memberName:
+            type: string
+            example: Hans Dampf
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              schema:
+                $ref: "../../definitions/Meeting.yaml"
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

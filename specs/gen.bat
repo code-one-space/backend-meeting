@@ -1,0 +1,1 @@
+update-specs.bat && create-html.bat
