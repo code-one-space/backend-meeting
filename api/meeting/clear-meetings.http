@@ -1,0 +1,6 @@
+# POST http://localhost:7071/api/meetings/join
+POST http://localhost:7071/api/meetings/clear
+
+{
+    "devlock": "Meow-Nojo"
+}
