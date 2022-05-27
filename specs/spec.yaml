@@ -185,7 +185,7 @@ paths:
               properties:
                 secret:
                   type: string
-                  example: Feature only available to developers.
+                  example: Feature only available for developers
       responses:
         "200":
           description: OK
