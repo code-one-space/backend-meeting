@@ -1,7 +1,8 @@
 post:
   summary: Clear Meeting
+  description: Clears all meetings from the database (DEV ONLY)
   tags:
-  - Meeting
+  - DEV ONLY
   requestBody:
     required: true
     content:
@@ -12,7 +13,7 @@ post:
             devlock:
               type: string
               example: Anything
-    responses:
+  responses:
     200:
       description: OK
       content: 

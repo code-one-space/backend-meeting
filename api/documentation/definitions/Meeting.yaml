@@ -5,8 +5,10 @@ properties:
   creator:
     type: object
     properties:
-      id: string
-      name: string
+      id:
+        type: string
+      name:
+        type: string
   creatorName:
     type: string
   memberId:

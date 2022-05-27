@@ -1,5 +1,6 @@
 post:
   summary: Join meeting
+  description: Returns a meeting by its id from the database
   tags:
   - Meeting
   requestBody:

@@ -1,1 +1,1 @@
-update-specs.bat && create-html.bat
+update-specs.bat && gen-html.bat
