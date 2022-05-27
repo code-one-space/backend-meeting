@@ -7,10 +7,12 @@ post:
     content:
       application/json:
         schema:
-          devlock:
-            type: string
-            example: Anything
-  responses:
+          type: object
+          properties:
+            devlock:
+              type: string
+              example: Anything
+    responses:
     200:
       description: OK
       content: 

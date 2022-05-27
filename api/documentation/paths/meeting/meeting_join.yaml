@@ -7,11 +7,13 @@ post:
     content:
       application/json:
         schema:
-          meetingId:
-            type: string
-          memberName:
-            type: string
-            example: Hans Dampf
+          type: object
+          properties:
+            meetingId:
+              type: string
+            memberName:
+              type: string
+              example: Hans Dampf
   responses:
     200:
       description: OK

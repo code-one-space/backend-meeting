@@ -104,11 +104,13 @@ paths:
         content:
           application/json:
             schema:
-              meetingId:
-                type: string
-              memberName:
-                type: string
-                example: Hans Dampf
+              type: object
+              properties:
+                meetingId:
+                  type: string
+                memberName:
+                  type: string
+                  example: Hans Dampf
       responses:
         "200":
           description: OK
@@ -139,10 +141,12 @@ paths:
         content:
           application/json:
             schema:
-              meetingId:
-                type: string
-              memberId:
-                type: string
+              type: object
+              properties:
+                meetingId:
+                  type: string
+                memberId:
+                  type: string
       responses:
         "200":
           description: OK
@@ -171,14 +175,6 @@ paths:
       tags:
         - Meeting
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              devlock:
-                type: string
-                example: Anything
-      responses:
         "200":
           description: OK
           content:
@@ -190,6 +186,16 @@ paths:
                     type: string
                     description: done message
                     example: done
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                devlock:
+                  type: string
+                  example: Anything
+        responses: null
 servers:
   - url: https://sep-nojo-test.azurewebsites.net/
     description: Azure deployment
