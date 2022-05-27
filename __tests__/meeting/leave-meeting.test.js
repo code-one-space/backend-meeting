@@ -4,7 +4,7 @@ const { MeetingId, MemberId } = require("../config").config
 test("Leave the test meeting with a member called [Meow Deow]", async () => {
 
     // add user called Meow Deow
-    let userToAdd = JSON.stringify({ meetingId: MeetingId, member: { name: "Meow Deow" }})
+    let userToAdd = JSON.stringify({ meetingId: MeetingId, memberName: "Meow Deow" })
     await axios.post("https://sep-nojo-test.azurewebsites.net/api/meetings/join", userToAdd, 
         { headers: {'Content-Type': 'application/json'} })
 

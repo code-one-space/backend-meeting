@@ -27,6 +27,11 @@ export interface Meeting {
     tools: Array<Tool>;
 }
 
+export async function clearAllMeetings() {
+
+    await collections.meetings.deleteMany({})
+}
+
 export async function findAllMeetings(): Promise<Meeting[]> {
     
     const meetings = (await collections.meetings.find({}).toArray()) as unknown as Meeting[]

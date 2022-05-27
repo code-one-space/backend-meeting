@@ -4,7 +4,7 @@ const { MeetingId } = require("../config").config
 let createdMeeting = null
 test("Create a meeting with name [[DEV] Backend Test-Meeting] for member [Definitely not Nojo]", async () => {
 
-    let json = JSON.stringify({ name: "[DEV] Backend Test-Meeting", owner: { name: "Definitely not Nojo" }})
+    let json = JSON.stringify({ meetingName: "[DEV] Backend Test-Meeting", creatorName: "Definitely not Nojo" })
 
     let meeting = await axios.post("https://sep-nojo-test.azurewebsites.net/api/meetings", json, 
         { headers: {'Content-Type': 'application/json'} })
@@ -13,13 +13,13 @@ test("Create a meeting with name [[DEV] Backend Test-Meeting] for member [Defini
     createdMeeting = meeting
 
     expect(meeting.members).toEqual(expect.arrayContaining([expect.objectContaining({ name: "Definitely not Nojo" })]))
-    expect(meeting.name).toEqual("[DEV] Backend Test-Meeting")
+    expect(meeting.meetingName).toEqual("[DEV] Backend Test-Meeting")
 })
 
 test("Delete a meeting with name [[DEV] Backend Test-Meeting] by leaving with only member [Definitely not Nojo]", async () => {
 
     // leave the meeting for Meow Deow
-    let meetingDetails = JSON.stringify({ meetingId: createdMeeting._id, memberId: createdMeeting.members[0].id })
+    let meetingDetails = JSON.stringify({ meetingId: createdMeeting._id, memberId: createdMeeting.memberId })
     await axios.post("https://sep-nojo-test.azurewebsites.net/api/meetings/leave", meetingDetails, 
         { headers: {'Content-Type': 'application/json'} })
     

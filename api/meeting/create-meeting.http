@@ -5,3 +5,12 @@ POST http://localhost:7071/api/meetings
     "meetingName": "Example Meeting",
     "creatorName": "Meow"
 }
+
+###
+
+POST https://sep-nojo-test.azurewebsites.net/api/meetings
+
+{
+    "meetingName": "Meow Deow's Meeting",
+    "creatorName": "Meow Deow"
+}
