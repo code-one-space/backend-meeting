@@ -12,7 +12,6 @@ export interface Member {
 
 export interface Tool {
     id?: ObjectId;
-    name: string;
     toolType: ToolType;
 }
 
