@@ -7,12 +7,12 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "jest --coverage --coverageDirectory __tests__/coverage --config jest.config.json --runInBand"
+    "test": "jest --coverage --coverageDirectory __tests__/coverage --config jest.config.js --runInBand --no-cache --watchAll=false"
   },
   "dependencies": {
     "@azure/functions": "^3.0.0",
     "axios": "^0.27.2",
-    "mongodb": "^4.5.0",
+    "mongodb": "^4.6.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
