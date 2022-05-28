@@ -1,32 +1,32 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { leaveMeeting } from "../db/meetings";
-import { ObjectId } from "mongodb";
+import { leaveMeeting } from "../db/meetings"
+import { ObjectId } from "mongodb"
+import { meetingLeaveSchema } from "../../fork/schemas/meeting-leave.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
-    const meetingId = new ObjectId(req.body.meetingId)
-    const memberId = new ObjectId(req.body.memberId);
-    try {
-        if (!req.body.memberId)
-            throw new Error("Could not leave meeting, because [meetingId] is missing")
-
-        if(!req.body.meetingId)
-            throw new Error("Could not leave meeting, because [member] is missing")
-
-        await leaveMeeting(meetingId, memberId)
-        context.res = {
-            status: 200,
-            body: {
-                message: "Left meeting successfully"
-            }
-        };
-    } catch (error) {
-        context.log.error(error);
-        context.res = {
-            status: 400,
-            body: error.message
-        }
+    const leave = {
+        meetingId: req.body.meetingId ?? "",
+        memberId: req.body.memberId ?? "",
     }
-};
 
-export default httpTrigger;
+    const result = meetingLeaveSchema.validate(leave)
+    if (result.error) {
+        context.res = {
+            status: 422,
+            body: result.error.details.map(x => x.message)
+        }
+        return
+    }
+
+    await leaveMeeting(new ObjectId(leave.meetingId), new ObjectId(leave.memberId))
+
+    context.res = {
+        status: 200,
+        body: {
+            message: "Left meeting successfully"
+        },
+    }
+}
+
+export default httpTrigger
