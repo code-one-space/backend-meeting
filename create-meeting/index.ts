@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { ObjectId } from "mongodb";
-import { addMeeting } from "../db/meetings";
-import { meetingSchema } from "../../fork/schemas/meeting-create.schema"// "../schemas/meeting.schema.js"
+import { ObjectId } from "mongodb"
+import { addMeeting } from "../db/meetings"
+import { meetingCreateSchema } from "../schemas/meeting-create.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -11,30 +11,32 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         createdAt: new Date(),
         done: false,
         members: [],
-        tools: []
+        tools: [],
     }
 
-    let id = new ObjectId()
-    let creator = { id: id, name: req.body.creatorName?.trim() ?? "" }
-    const result = meetingSchema.validate(newMeeting)
-
-    if(result.error) {
+    const result = meetingCreateSchema.validate(newMeeting)
+    if (result.error) {
         context.res = {
             status: 422,
-            body: result.error.details.map(x => x.message)
-        };
-        return;
+            body: result.error.details.map(x => x.message),
+        }
+        return
     }
 
-    const meeting = await addMeeting(result.value, creator)
+    const creator = {
+        id: new ObjectId(),
+        name: req.body.creatorName?.trim() ?? "",
+    }
+
+    const meeting = await addMeeting(newMeeting, creator)
 
     // add created memberId separately, requested feature by Janik for QoL
-    meeting.memberId = id;
+    meeting.memberId = creator.id
 
     context.res = {
         status: 200,
-        body: meeting
-    };
-};
+        body: meeting,
+    }
+}
 
-export default httpTrigger;
+export default httpTrigger

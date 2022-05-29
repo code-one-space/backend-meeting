@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { joinMeeting } from "../db/meetings"
 import { ObjectId } from "mongodb"
-import { meetingJoinSchema } from "../../fork/schemas/meeting-join.schema"
+import { meetingJoinSchema } from "../schemas/meeting-join.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if (result.error) {
         context.res = {
             status: 422,
-            body: result.error.details.map(x => x.message)
+            body: result.error.details.map(x => x.message),
         }
         return
     }

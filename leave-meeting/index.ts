@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { leaveMeeting } from "../db/meetings"
 import { ObjectId } from "mongodb"
-import { meetingLeaveSchema } from "../../fork/schemas/meeting-leave.schema"
+import { meetingLeaveSchema } from "../schemas/meeting-leave.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if (result.error) {
         context.res = {
             status: 422,
-            body: result.error.details.map(x => x.message)
+            body: result.error.details.map(x => x.message),
         }
         return
     }
@@ -24,7 +24,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.res = {
         status: 200,
         body: {
-            message: "Left meeting successfully"
+            message: "Left meeting successfully",
         },
     }
 }

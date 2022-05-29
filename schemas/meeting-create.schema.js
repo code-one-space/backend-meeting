@@ -3,6 +3,7 @@ const Joi = require("joi")
 const schema = Joi.object({
 
     creator: Joi.object(),
+
     creatorName: Joi.string()
         .min(2)
         .max(30)
@@ -27,4 +28,4 @@ const schema = Joi.object({
     tools: Joi.array()
 })
 
-module.exports.meetingSchema = schema;
+module.exports.meetingCreateSchema = schema;
