@@ -1,0 +1,16 @@
+# POST http://localhost:7071/api/todos
+
+POST http://localhost:7071/api/tools/quit
+
+{
+    "meetingId": "6294b371dd7aa23a8a41fcd2",
+    "toolId": "6294b392dd7aa23a8a41fcd3"
+}
+
+###
+POST https://sep-nojo-test.azurewebsites.net/api/tools/quit
+
+{
+    "meetingId": "6294b371dd7aa23a8a41fcd2",
+    "toolId": "6294b392dd7aa23a8a41fcd3"
+}

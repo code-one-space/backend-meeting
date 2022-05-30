@@ -1,4 +1,4 @@
-import Joi, { ref } from "joi";
+const Joi = require("joi")
 
 const schema = Joi.object({
 

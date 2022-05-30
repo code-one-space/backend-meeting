@@ -1,0 +1,36 @@
+# POST http://localhost:7071/api/todos
+
+POST http://localhost:7071/api/tools
+
+{
+    "meetingId": "6294b371dd7aa23a8a41fcd2",
+    "toolType": "devils_advocat",
+    "members": [
+        {
+           "id": "6294b371dd7aa23a8a41fcd1",
+            "name": "Meow"
+        },
+        {
+            "id": "6294ad9e3327a79e34c33f0c",
+            "name": "Mark Aurel"
+        }
+    ]
+}
+
+###
+POST https://sep-nojo-test.azurewebsites.net/api/tools
+
+{
+    "meetingId": "6294ad903327a79e34c33f0b",
+    "toolType": "devils_advocat",
+    "members": [
+        {
+           "id": "6294ad903327a79e34c33f0a",
+            "name": "Meow"
+        },
+        {
+            "id": "6294ad9e3327a79e34c33f0c",
+            "name": "Mark Aurel"
+        }
+    ]
+}
