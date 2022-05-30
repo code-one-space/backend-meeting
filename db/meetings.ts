@@ -63,6 +63,9 @@ export async function addMeeting(newMeeting: Meeting, creator: Member): Promise<
 
 export async function quitTool(meetingId: ObjectId, toolId: ObjectId) {
 
+    // i hate mongodb queries
+
+    // update a meeting with given meetingid and select the tool in the tools array where the id is toolId and set its done value to true
     return await collections.meetings.updateOne({ _id: meetingId, "tools.id": toolId }, { $set: { "tools.$.done": true }})
 }
 
