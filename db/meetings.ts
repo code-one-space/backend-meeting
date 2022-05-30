@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ObjectId } from "mongodb";
 import { collections } from "./mongodb-client";
 
@@ -13,6 +14,9 @@ export interface Member {
 export interface Tool {
     id?: ObjectId;
     toolType: ToolType;
+    createdAt: Date;
+    done: boolean;
+    members: Array<Member>;
 }
 
 export interface Meeting {
@@ -20,6 +24,7 @@ export interface Meeting {
     creatorName?: string;
     id?: ObjectId;
     memberId?: ObjectId;
+    createdToolId?: ObjectId;
     meetingName: string;
     createdAt: Date;
     done: boolean;
@@ -53,6 +58,64 @@ export async function addMeeting(newMeeting: Meeting, creator: Member): Promise<
     } else {
         console.log({ newMeeting })
         return newMeeting;
+    }
+}
+
+export async function quitTool(meetingId: ObjectId, toolId: ObjectId) {
+
+    return await collections.meetings.updateOne({ _id: meetingId, "tools.id": toolId }, { $set: { "tools.$.done": true }})
+}
+
+export async function addTool(meetingId: ObjectId, tool: Tool): Meeting {
+    
+    // remove meetingId so it doesnt get written into the db
+    delete tool?.meetingId
+
+    // get the meeting, can't use findandupdateone because we need to filter
+    let res = await collections.meetings.findOne({ _id: meetingId })
+
+    // if there was no meeting return an empty object
+    if(!!!Object.keys(res ?? {}).length)
+        return {}
+
+    // filter the members provided by the user on its id and name by the members in the database
+    tool.members = tool?.members.filter(x => res?.members.some(filterMember => filterMember.id == x.id && filterMember.name == x.name))
+
+    // if no members to add are left return empty object
+    if(tool.members.length == 0)
+        return {}
+
+    // handle logic for different types of hats
+    if(tool?.toolType == "devils_advocat")
+        addHats(tool)
+
+    // TODO implement other modes and add the data to user data
+
+    // update the dataset in the db
+    res = await collections.meetings.findOneAndUpdate({ _id: meetingId}, {
+        $push: {
+            tools: {
+                ...tool
+            }
+        }
+    },
+    {
+        returnDocument: "after"
+    })
+
+    return res?.value
+}
+
+function addHats(tool: Tool) {
+
+    let hats = ["red", "white", "green", "blue", "yellow", "black"]
+
+    for(let member of tool?.members) {
+        if(!!!hats.length)
+            hats = ["red", "white", "green", "blue", "yellow", "black"]
+
+        hats.sort((a, b) => 0.5 - Math.random());
+        member.hat = hats.pop()
     }
 }
 

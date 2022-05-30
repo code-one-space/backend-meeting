@@ -1,10 +1,10 @@
-import Joi, { ref } from "joi";
+const Joi = require("joi-oid")
 
 const schema = Joi.object({
 
-    id: Joi.string()
-        .hex()
-        .length(24),
+    id: Joi.objectId(),
+
+    meetingId: Joi.objectId().required(),
 
     toolType: Joi.string()
         .valid("devils_advocat", "planning_poker")
@@ -12,10 +12,9 @@ const schema = Joi.object({
 
     createdAt: Joi.date(),
     done: Joi.bool(),
-    members: Joi.array(),
-    tools: Joi.array()
+    members: Joi.array()
 })
 
 module.exports = {
-    toolSchema: schema
+    toolCreateSchema: schema
 }
