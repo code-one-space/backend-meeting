@@ -7,10 +7,10 @@ assignees: ''
 
 ---
 
-**Beschreibung**  
+## Beschreibung  
 
-**Anforderung**  
+## Anforderung  
 
-**Konflikte mit (wenn bekannt)**  
+## Konflikte mit (wenn bekannt)  
 
-**Sonstige Quellen / Angaben**
+## Sonstige Quellen / Angaben  
