@@ -7,28 +7,29 @@ assignees: ''
 
 ---
 
-**Beschreibung des Bugs**
+### Beschreibung des Bugs
 A clear and concise description of what the bug is.
 
-**Schritte**
+### Schritte
 Schritte zur Reproduktion:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Erwartetes Verhalten**  
+### Erwartetes Verhalten  
 
-**Tatsächliches Verhalten**  
+### Tatsächliches Verhalten 
 
-**Screenshots (optional)**  
+### Screenshots (optional)  
 
-**Emulator/Smartphone?**  
+### Emulator/Smartphone?  
 
-**Schweregrad des Bugs**  
+### Schweregrad des Bugs  
 [] niedrig
 [] mittel
 [] schwer
 [] urgent
 
-**Weitere Informationen**
+* * *
+### Weitere Informationen
