@@ -82,7 +82,10 @@ export async function addTool(meetingId: ObjectId, tool: Tool): Meeting {
         return {}
 
     // filter the members provided by the user on its id and name by the members in the database
-    tool.members = tool?.members.filter(x => res?.members.some(filterMember => filterMember.id == x.id && filterMember.name == x.name))
+    // not needed anymore, all members get assigned to the created tool
+    // tool.members = tool?.members.filter(x => res?.members.some(filterMember => filterMember.id == x.id && filterMember.name == x.name))
+
+    tool.members = res?.members ?? []
 
     // if no members to add are left return empty object
     if(tool.members.length == 0)

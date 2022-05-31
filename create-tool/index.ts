@@ -12,7 +12,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         toolType: req.body.toolType?.trim() ?? "",
         createdAt: new Date(),
         done: !!req.body.done ?? false,
-        members: req.body.members
+        members: []
     }
 
     // validate userdata
