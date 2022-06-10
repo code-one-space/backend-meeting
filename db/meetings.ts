@@ -9,6 +9,7 @@ export enum ToolType {
 export interface Member {
     id?: ObjectId;
     name: string;
+    notifications?: Array<Notification>;
 }
 
 export interface Tool {
@@ -32,19 +33,45 @@ export interface Meeting {
     tools: Array<Tool>;
 }
 
+export interface Notification {
+    id: ObjectId;
+    meetingId: ObjectId;
+    creatorId: Member;
+    createdAt: Date;
+    message: string;
+}
+
+export async function addNotification(notification: Notification) {
+
+    const meeting = await collections.meetings.findOne({ _id: notification.meetingId })
+    if (!meeting)
+        return meeting
+
+    const member = meeting.members.find(x => x.id === memberId)
+    if (!member)
+        return member
+
+    member.notifications = [notification, ...(member.notifications || [])]
+
+    return await collections.meetings.updateOne(
+        { _id: notification.meetingId, "members.id": notification.creatorId},
+        { $set: { "members.$.notifications": member.notifications } }
+    )
+}
+
 export async function clearAllMeetings() {
 
     await collections.meetings.deleteMany({})
 }
 
 export async function findAllMeetings(): Promise<Meeting[]> {
-    
+
     const meetings = (await collections.meetings.find({}).toArray()) as unknown as Meeting[]
     return meetings;
 }
 
 export async function addMeeting(newMeeting: Meeting, creator: Member): Promise<Meeting> {
-    
+
     newMeeting.createdAt = new Date();
     newMeeting.members = [creator];
     newMeeting.tools = [];
@@ -70,7 +97,7 @@ export async function quitTool(meetingId: ObjectId, toolId: ObjectId) {
 }
 
 export async function addTool(meetingId: ObjectId, tool: Tool): Meeting {
-    
+
     // remove meetingId so it doesnt get written into the db
     delete tool?.meetingId
 
@@ -126,7 +153,7 @@ function addHats(tool: Tool) {
 }
 
 export async function joinMeeting(meetingId: ObjectId, member: Member) {
-    
+
     await collections.meetings.updateOne({ _id: meetingId}, {
         $push: {
             members: {
@@ -138,11 +165,11 @@ export async function joinMeeting(meetingId: ObjectId, member: Member) {
 }
 
 export async function leaveMeeting(meetingId: ObjectId, memberId: ObjectId) {
-    
+
     await collections.meetings.updateOne({ _id: meetingId}, {
         $pull: {
             members: {
-                id: memberId 
+                id: memberId
             }
         }
     })
@@ -150,7 +177,7 @@ export async function leaveMeeting(meetingId: ObjectId, memberId: ObjectId) {
     await collections.meetings.deleteOne({
         members: {
             $size: 0
-        } 
+        }
     })
 }
 

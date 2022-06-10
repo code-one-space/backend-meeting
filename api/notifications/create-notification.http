@@ -1,0 +1,15 @@
+POST http://localhost:7071/api/notifications
+
+{
+    "meetingId": "629625f06218d4201eb4a1fd",
+    "creatorId": "629625f06218d4201eb4a1fe",
+}
+
+###
+
+POST https://sep-nojo-test.azurewebsites.net/api/notifications
+
+{
+    "meetingId": "629625f06218d4201eb4a1fd",
+    "creatorId": "629625f06218d4201eb4a1fe",
+}
