@@ -59,6 +59,17 @@ export async function addNotification(notification: Notification) {
     )
 }
 
+export async function getNotifications(meetingId: ObjectId, memberId: ObjectId): Array<Notification> {
+    return await collections.meetings.findOne({ _id: meetingId })?.members.find(x => x.id === memberId)?.notifications || []
+}
+
+export async function deleteNotification(meetingId: ObjectId, memberId: ObjectId, notificationId: ObjectId) {
+    return await collections.meetings.updateOne(
+        { _id: meetingId, "members.id": memberId},
+        { $pull: { "members.$.notifications": notificationId } }
+    )
+}
+
 export async function clearAllMeetings() {
 
     await collections.meetings.deleteMany({})

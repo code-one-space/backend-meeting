@@ -7,7 +7,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     const notification = {
         id: new ObjectId(),
-        meetingId: req.body.creatorId ?? "",
+        meetingId: req.body.meetingId ?? "",
         creatorId: req.body.creatorId ?? "",
         createdAt: new Date(),
         message: req.body.message?.trim() ?? "",
@@ -23,10 +23,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     const addResult = await addNotification(notification)
-    if (!addResult) {
+    if (!addResult) { // TODO testen
         context.res = {
             status: 422,
-            body: "create-notification.http: could not send notification",
+            body: "create-notification: could not send notification",
         }
         return
     }

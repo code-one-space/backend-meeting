@@ -8,4 +8,4 @@ const schema = Joi.object({
     message: Joi.string().min(2).max(100),
 })
 
-module.exports.notificationCreateSchema = schema;
+module.exports.notificationCreateSchema = schema
