@@ -6,5 +6,11 @@
   $ref: ./meeting/meeting_join.yaml
 /api/meetings/leave:
   $ref: ./meeting/meeting_leave.yaml
-/api/meetings/clear:
-  $ref: ./meeting/meeting_clear.yaml
+
+/api/notifications:
+  $ref: ./notifications/notifications.yaml
+
+/api/tools:
+  $ref: ./tools/tool_start.yaml
+/api/tools/quit:
+  $ref: ./tools/tool_quit.yaml

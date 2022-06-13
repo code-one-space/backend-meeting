@@ -8,8 +8,3 @@ servers:
   description: Azure deployment
 - url: http://localhost:7071/
   description: Development server
-components:
-  examples:
-    $ref: ./examples/index.yaml
-  schemas:
-    $ref: ./definitions/index.yaml

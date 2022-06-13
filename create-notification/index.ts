@@ -7,11 +7,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     const notification = {
         id: new ObjectId(),
-        meetingId: req.body.meetingId ?? "",
-        creatorId: req.body.creatorId ?? "",
+        meetingId: new ObjectId(req.body.meetingId ?? ""),
+        receiverId: new ObjectId(req.body.receiverId ?? ""),
         createdAt: new Date(),
         message: req.body.message?.trim() ?? "",
     }
+
+    console.log(notification)
 
     const validateResult = notificationCreateSchema.validate(notification)
     if (validateResult.error) {
@@ -23,10 +25,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     const addResult = await addNotification(notification)
-    if (!addResult) { // TODO testen
+    if (!!!Object.keys(addResult ?? {}).length) {
         context.res = {
             status: 422,
-            body: "create-notification: could not send notification",
+            body: "Could not send notification2",
         }
         return
     }

@@ -15,6 +15,7 @@
     "joi": "^17.6.0",
     "joi-oid": "^1.1.2",
     "mongodb": "^4.6.0",
+    "redoc-cli": "^0.13.16",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
