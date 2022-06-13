@@ -9,14 +9,8 @@ export enum ToolType {
 export interface Member {
     id?: ObjectId;
     name: string;
-}
-
-export interface Tool {
-    id?: ObjectId;
-    toolType: ToolType;
-    createdAt: Date;
-    done: boolean;
-    members: Array<Member>;
+    notifications?: Array<Notification>;
+    hat: string;
 }
 
 export interface Meeting {
@@ -29,7 +23,44 @@ export interface Meeting {
     createdAt: Date;
     done: boolean;
     members: Array<Member>;
-    tools: Array<Tool>;
+    currentTool: string;
+}
+
+export interface Notification {
+    id: ObjectId;
+    meetingId: ObjectId;
+    creatorId: Member;
+    createdAt: Date;
+    message: string;
+}
+
+export async function addNotification(notification: Notification) {
+
+    const meeting = await collections.meetings.findOne({ _id: notification.meetingId })
+    if(!meeting)
+        return meeting
+
+    const member = meeting.members.find(x => x.id === memberId)
+    if(!member)
+        return member
+
+    member.notifications = [notification, ...(member.notifications ?? [])]
+
+    return await collections.meetings.updateOne(
+        { _id: notification.meetingId, "members.id": notification.creatorId},
+        { $set: { "members.$.notifications": member.notifications } }
+    )
+}
+
+export async function getNotifications(meetingId: ObjectId, memberId: ObjectId): Array<Notification> {
+    return await collections.meetings.findOne({ _id: meetingId })?.members.find(x => x.id === memberId)?.notifications ?? []
+}
+
+export async function deleteNotification(meetingId: ObjectId, memberId: ObjectId, notificationId: ObjectId) {
+    return await collections.meetings.updateOne(
+        { _id: meetingId, "members.id": memberId},
+        { $pull: { "members.$.notifications": notificationId } }
+    )
 }
 
 export async function clearAllMeetings() {
@@ -38,16 +69,15 @@ export async function clearAllMeetings() {
 }
 
 export async function findAllMeetings(): Promise<Meeting[]> {
-    
+
     const meetings = (await collections.meetings.find({}).toArray()) as unknown as Meeting[]
     return meetings;
 }
 
 export async function addMeeting(newMeeting: Meeting, creator: Member): Promise<Meeting> {
-    
+
     newMeeting.createdAt = new Date();
     newMeeting.members = [creator];
-    newMeeting.tools = [];
 
     delete newMeeting.creatorName;
 
@@ -61,48 +91,35 @@ export async function addMeeting(newMeeting: Meeting, creator: Member): Promise<
     }
 }
 
-export async function quitTool(meetingId: ObjectId, toolId: ObjectId) {
+export async function stopTool(meetingId: ObjectId) {
 
-    // i hate mongodb queries
-
-    // update a meeting with given meetingid and select the tool in the tools array where the id is toolId and set its done value to true
-    return await collections.meetings.updateOne({ _id: meetingId, "tools.id": toolId }, { $set: { "tools.$.done": true }})
+    return (await collections.meetings.findOneAndUpdate({ _id: meetingId }, { $set: { currentTool: "", "members.$[].hat": "" }},
+    {
+        returnDocument: "after"
+    }))?.value
 }
 
-export async function addTool(meetingId: ObjectId, tool: Tool): Meeting {
-    
-    // remove meetingId so it doesnt get written into the db
-    delete tool?.meetingId
+export async function startTool(meetingId: ObjectId): Meeting {
 
-    // get the meeting, can't use findandupdateone because we need to filter
+    // get the meeting, can't use findandupdateone because we need add dynamic data
     let res = await collections.meetings.findOne({ _id: meetingId })
 
     // if there was no meeting return an empty object
     if(!!!Object.keys(res ?? {}).length)
         return {}
 
-    // filter the members provided by the user on its id and name by the members in the database
-    // not needed anymore, all members get assigned to the created tool
-    // tool.members = tool?.members.filter(x => res?.members.some(filterMember => filterMember.id == x.id && filterMember.name == x.name))
-
-    tool.members = res?.members ?? []
-
-    // if no members to add are left return empty object
-    if(tool.members.length == 0)
-        return {}
-
-    // handle logic for different types of hats
-    if(tool?.toolType == "devils_advocat")
-        addHats(tool)
+    if(!!res.currentTool)
+        return { error: "Tool is already active" }
 
     // TODO implement other modes and add the data to user data
+    // currently only one tool, for future switch
+    addHats(res)
 
     // update the dataset in the db
     res = await collections.meetings.findOneAndUpdate({ _id: meetingId}, {
-        $push: {
-            tools: {
-                ...tool
-            }
+        $set: {
+            members: res.members,
+            currentTool: "devils_advocat"
         }
     },
     {
@@ -112,11 +129,13 @@ export async function addTool(meetingId: ObjectId, tool: Tool): Meeting {
     return res?.value
 }
 
-function addHats(tool: Tool) {
+function addHats(res: any) {
+
+    let members = res.members as Array<Member>
 
     let hats = ["red", "white", "green", "blue", "yellow", "black"]
 
-    for(let member of tool?.members) {
+    for(let member of members) {
         if(!!!hats.length)
             hats = ["red", "white", "green", "blue", "yellow", "black"]
 
@@ -126,7 +145,7 @@ function addHats(tool: Tool) {
 }
 
 export async function joinMeeting(meetingId: ObjectId, member: Member) {
-    
+
     await collections.meetings.updateOne({ _id: meetingId}, {
         $push: {
             members: {
@@ -138,11 +157,11 @@ export async function joinMeeting(meetingId: ObjectId, member: Member) {
 }
 
 export async function leaveMeeting(meetingId: ObjectId, memberId: ObjectId) {
-    
+
     await collections.meetings.updateOne({ _id: meetingId}, {
         $pull: {
             members: {
-                id: memberId 
+                id: memberId
             }
         }
     })
@@ -150,7 +169,7 @@ export async function leaveMeeting(meetingId: ObjectId, memberId: ObjectId) {
     await collections.meetings.deleteOne({
         members: {
             $size: 0
-        } 
+        }
     })
 }
 

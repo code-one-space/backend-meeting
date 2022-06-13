@@ -25,7 +25,7 @@ const schema = Joi.object({
     createdAt: Joi.date(),
     done: Joi.bool(),
     members: Joi.array(),
-    tools: Joi.array()
+    currentTool: Joi.string().allow("", null)
 })
 
 module.exports.meetingCreateSchema = schema;

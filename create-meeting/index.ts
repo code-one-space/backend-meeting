@@ -11,7 +11,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         createdAt: new Date(),
         done: false,
         members: [],
-        tools: [],
+        currentTool: ""
     }
 
     const result = meetingCreateSchema.validate(newMeeting)
@@ -26,6 +26,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     const creator = {
         id: new ObjectId(),
         name: req.body.creatorName?.trim() ?? "",
+        hat: ""
     }
 
     const meeting = await addMeeting(newMeeting, creator)

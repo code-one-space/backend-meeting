@@ -3,8 +3,7 @@
 POST http://localhost:7071/api/tools
 
 {
-    "meetingId": "629625f06218d4201eb4a1fd",
-    "toolType": "devils_advocat"
+    "meetingId": "62a707677939ed0a34c324b2"
 }
 
 ### Azure Deployment

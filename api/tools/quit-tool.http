@@ -3,8 +3,7 @@
 POST http://localhost:7071/api/tools/quit
 
 {
-    "meetingId": "6294b371dd7aa23a8a41fcd2",
-    "toolId": "6294b392dd7aa23a8a41fcd3"
+    "meetingId": "62a707677939ed0a34c324b2"
 }
 
 ###
