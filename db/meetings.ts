@@ -44,14 +44,14 @@ export interface Notification {
 export async function addNotification(notification: Notification) {
 
     const meeting = await collections.meetings.findOne({ _id: notification.meetingId })
-    if (!meeting)
+    if(!meeting)
         return meeting
 
     const member = meeting.members.find(x => x.id === memberId)
-    if (!member)
+    if(!member)
         return member
 
-    member.notifications = [notification, ...(member.notifications || [])]
+    member.notifications = [notification, ...(member.notifications ?? [])]
 
     return await collections.meetings.updateOne(
         { _id: notification.meetingId, "members.id": notification.creatorId},
@@ -60,7 +60,7 @@ export async function addNotification(notification: Notification) {
 }
 
 export async function getNotifications(meetingId: ObjectId, memberId: ObjectId): Array<Notification> {
-    return await collections.meetings.findOne({ _id: meetingId })?.members.find(x => x.id === memberId)?.notifications || []
+    return await collections.meetings.findOne({ _id: meetingId })?.members.find(x => x.id === memberId)?.notifications ?? []
 }
 
 export async function deleteNotification(meetingId: ObjectId, memberId: ObjectId, notificationId: ObjectId) {

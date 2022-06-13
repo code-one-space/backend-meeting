@@ -1,9 +1,9 @@
-const Joi = require("joi")
+const Joi = require("joi-oid")
 
 const schema = Joi.object({
-    id: Joi.string().hex().length(24),
-    meetingId: Joi.string().hex().length(24).required(),
-    creatorId: Joi.string().hex().length(24).required(),
+    id: Joi.objectId(),
+    meetingId: Joi.objectId(),
+    creatorId: Joi.objectId(),
     createdAt: Joi.date(),
     message: Joi.string().min(2).max(100),
 })
