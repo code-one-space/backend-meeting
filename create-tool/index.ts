@@ -1,18 +1,15 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { addTool } from "../db/meetings"
+import { startTool } from "../db/meetings"
 import { toolCreateSchema } from "../schemas/tool-create.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
     // create a new object for the tool
     const newTool = {
-        id: new ObjectId(),
         meetingId: new ObjectId(req.body.meetingId.trim()),
-        toolType: req.body.toolType?.trim() ?? "",
         createdAt: new Date(),
         done: !!req.body.done ?? false,
-        members: []
     }
 
     // validate userdata
@@ -28,19 +25,16 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     // add the tool to the database
-    const meeting = await addTool(new ObjectId(req.body.meetingId), newTool)
+    const meeting = await startTool(new ObjectId(req.body.meetingId)) as any
 
     // if the operation was unsuccessful (empty object) return an error message
-    if(!!!Object.keys(meeting).length) {
+    if(!!!Object.keys(meeting).length || !!meeting?.error) {
         context.res = {
             status: 422,
-            body: "Failed to add tool. Invalid members or meetingId?"
+            body: meeting?.error ?? "Failed to start tool"
         }
         return
     }
-
-    // quality of life feature for frontend devs so they dont have to filter
-    meeting.createdToolId = newTool.id
 
     // return data
     context.res = {

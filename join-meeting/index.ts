@@ -22,6 +22,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     const member = {
         id: new ObjectId(),
         name: join.memberName,
+        hat: ""
     }
     const meeting = await joinMeeting(new ObjectId(join.meetingId), member)
     meeting.memberId = member.id

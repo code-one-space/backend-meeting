@@ -6,13 +6,8 @@ const schema = Joi.object({
 
     meetingId: Joi.objectId().required(),
 
-    toolType: Joi.string()
-        .valid("devils_advocat", "planning_poker")
-        .required(),
-
     createdAt: Joi.date(),
-    done: Joi.bool(),
-    members: Joi.array()
+    done: Joi.bool()
 })
 
 module.exports = {
