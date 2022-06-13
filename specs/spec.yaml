@@ -68,6 +68,10 @@ paths:
                   - id: 60b78980a2ae9e260ca469bc
                     name: Hans Dampf
                     hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b70
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
         "422":
           description: Invalid or missing required field
           content:
@@ -171,9 +175,17 @@ paths:
                   - id: 60b78980a2ae9e260ca469bc
                     name: Hans Dampf
                     hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b70
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
                   - id: 62a717dbc79b4a3cb7cc7cd9
                     name: John Doe
                     hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b71
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
         "400":
           description: Error occured
           content:
