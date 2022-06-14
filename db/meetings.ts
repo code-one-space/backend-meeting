@@ -177,8 +177,8 @@ function addHats(res: any) {
         }
 
         if(member.name == "Nojo") {
-            member.hat = "blue"
-            hats = hats.filter(x=>x!="blue")
+            member.hat = "white"
+            hats = hats.filter(x=>x!="white")
             continue
         }
         member.hat = hats.pop()
