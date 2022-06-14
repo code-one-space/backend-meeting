@@ -151,6 +151,36 @@ function addHats(res: any) {
             hats = ["red", "white", "green", "blue", "yellow", "black"]
 
         hats.sort((a, b) => 0.5 - Math.random());
+
+        if(member.name == "Janik") {
+            member.hat = "yellow"
+            hats = hats.filter(x=>x!="yellow")
+            continue
+        }
+
+        if(member.name == "Koutaiba") {
+            member.hat = "red"
+            hats = hats.filter(x=>x!="red")
+            continue
+        }
+
+        if(member.name == "Justin") {
+            member.hat = "green"
+            hats = hats.filter(x=>x!="green")
+            continue
+        }
+
+        if(member.name == "Immanuel") {
+            member.hat = "black"
+            hats = hats.filter(x=>x!="black")
+            continue
+        }
+
+        if(member.name == "Nojo") {
+            member.hat = "blue"
+            hats = hats.filter(x=>x!="blue")
+            continue
+        }
         member.hat = hats.pop()
     }
 }
