@@ -5,9 +5,9 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "notifications",
+      "route": "notifications/delete",
       "methods": [
-        "delete"
+        "post"
       ]
     },
     {
