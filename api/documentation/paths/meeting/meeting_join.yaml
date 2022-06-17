@@ -1,0 +1,38 @@
+post:
+  summary: Join meeting
+  description: Join a meeting by providing a username and the id of meeting to join
+  tags:
+  - Meeting
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            meetingId:
+              type: string
+              example: 60b78980a2ae9e260ca469ba
+            memberName:
+              type: string
+              example: John Doe
+              description: Must be between 2 and 30 characters (both ends inclusive)
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            $ref: "../../definitions/Meeting.yaml"
+          example:
+            $ref: "../../examples/Meeting.yaml#/joined"
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

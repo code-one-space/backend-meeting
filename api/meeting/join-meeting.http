@@ -2,8 +2,8 @@
 POST http://localhost:7071/api/meetings/join
 
 {
-    "meetingId": "628b61f1a61e94b859575a8b",
-    "memberName": "Nojo"
+    "meetingId": "62a707677939ed0a34c324b2",
+    "memberName": "nOwO uwu"
 }
 
 
@@ -12,6 +12,6 @@ POST http://localhost:7071/api/meetings/join
 POST https://sep-nojo-test.azurewebsites.net/api/meetings/join
 
 {
-    "meetingId": "628b61f1a61e94b859575a8b",
+    "meetingId": "62a707677939ed0a34c324b2",
     "memberName": "Nojo"
 }

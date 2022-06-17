@@ -1,0 +1,18 @@
+# POST http://localhost:7071/api/todos
+
+POST http://localhost:7071/api/tools
+
+{
+    "meetingId": "62a707677939ed0a34c324b2"
+}
+
+### Azure Deployment
+### member list no longer required
+### for full specs see api documentation
+
+POST https://sep-nojo-test.azurewebsites.net/api/tools
+
+{
+    "meetingId": "6294ad903327a79e34c33f0b",
+    "toolType": "devils_advocat"
+}

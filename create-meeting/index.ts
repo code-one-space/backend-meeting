@@ -1,32 +1,43 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { ObjectId } from "mongodb";
-import { addMeeting, Meeting } from "../db/meetings";
+import { ObjectId } from "mongodb"
+import { addMeeting } from "../db/meetings"
+import { meetingCreateSchema } from "../schemas/meeting-create.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
-    const newMeeting = req.body as Meeting
-    try {
-        if (!newMeeting.meetingName || newMeeting.meetingName.trim() === "") {
-            throw new Error("Could not create meeting, because [meetingName] is missing")
-        }
-        if (!newMeeting.creatorName || newMeeting.creatorName.trim() === "") {
-            throw new Error("Could not create meeting, because [creatorName] is missing")
-        }
-        let id = new ObjectId()
-        let creator = { id: id, name: req.body.creatorName }
-        const meeting = await addMeeting(newMeeting, creator)
-        meeting.memberId = id;
-        context.res = {
-            status: 200,
-            body: meeting
-        };
-    } catch (error) {
-        context.log.error(error);
-        context.res = {
-            status: 400,
-            body: error.message
-        }
+    const newMeeting = {
+        creatorName: req.body.creatorName?.trim() ?? "",
+        meetingName: req.body.meetingName?.trim() ?? "",
+        createdAt: new Date(),
+        done: false,
+        members: [],
+        currentTool: ""
     }
-};
 
-export default httpTrigger;
+    const result = meetingCreateSchema.validate(newMeeting)
+    if (result.error) {
+        context.res = {
+            status: 422,
+            body: result.error.details.map(x => x.message),
+        }
+        return
+    }
+
+    const creator = {
+        id: new ObjectId(),
+        name: req.body.creatorName?.trim() ?? "",
+        hat: ""
+    }
+
+    const meeting = await addMeeting(newMeeting, creator)
+
+    // add created memberId separately, requested feature by Janik for QoL
+    meeting.memberId = creator.id
+
+    context.res = {
+        status: 200,
+        body: meeting,
+    }
+}
+
+export default httpTrigger

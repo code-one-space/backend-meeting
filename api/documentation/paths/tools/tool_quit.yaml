@@ -1,0 +1,32 @@
+post:
+  summary: Stop tool
+  description: Stop a running tool in a meeting. This endpoint will clear all hats for all members and clear the currentTool.
+  tags:
+  - Tools
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            meetingId:
+              type: string
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            $ref: "../../examples/Tool.yaml#/value"
+
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

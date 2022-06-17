@@ -1,0 +1,16 @@
+/api/meetings:
+  $ref: ./meeting/meetings.yaml
+/api/meetings/{id}:
+  $ref: ./meeting/meeting.yaml
+/api/meetings/join:
+  $ref: ./meeting/meeting_join.yaml
+/api/meetings/leave:
+  $ref: ./meeting/meeting_leave.yaml
+
+/api/notifications:
+  $ref: ./notifications/notifications.yaml
+
+/api/tools:
+  $ref: ./tools/tool_start.yaml
+/api/tools/quit:
+  $ref: ./tools/tool_quit.yaml

@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: string
+  memberId:
+    type: string
+  meetingName:
+    type: string
+  createdAt:
+    type: string
+  done:
+    type: boolean
+  members:
+    type: array
+  currentTool:
+    type: string
+required:
+- meetingName
+
+example:
+  $ref: "../examples/Meeting.yaml#/value"
