@@ -1,9 +1,9 @@
-const Joi = require("joi")
+const Joi = require("joi-oid")
 
 const schema = Joi.object({
-    meetingId: Joi.string().hex().length(24).required(),
-    memberId: Joi.string().hex().length(24).required(),
-    notificationId: Joi.string().hex().length(24),
+    meetingId: Joi.objectId().required(),
+    receiverId: Joi.objectId().required(),
+    notificationId: Joi.objectId().required(),
 })
 
 module.exports.notificationDeleteSchema = schema

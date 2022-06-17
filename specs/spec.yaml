@@ -26,16 +26,52 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Meeting"
+              type: object
+              properties:
+                id:
+                  type: string
+                memberId:
+                  type: string
+                meetingName:
+                  type: string
+                createdAt:
+                  type: string
+                done:
+                  type: boolean
+                members:
+                  type: array
+                currentTool:
+                  type: string
+              required:
+                - meetingName
+              example:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
+            example:
+              meetingName: Hans Dampf's Meeting
+              creatorName: Hans Dampf
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Meeting"
+                $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                  a"
               example:
-                $ref: "#/components/examples/exMeeting"
+                id: 60b78980a2ae9e260ca469ba
+                meetingName: Hans Dampf's Meeting
+                createdAt: 2022-05-27T16:49:16.316Z
+                done: false
+                currentTool: devils_advocat
+                members:
+                  - id: 60b78980a2ae9e260ca469bc
+                    name: Hans Dampf
+                    hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b70
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
         "422":
           description: Invalid or missing required field
           content:
@@ -69,11 +105,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Meeting"
+                  $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                    a"
+            example:
+              $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                mple"
   "/api/meetings/{id}":
     get:
-      summary: Get single meeting
-      description: Returns a meeting by its id from the database
+      summary: Get meeting
+      description: Returns a meeting by its id
       tags:
         - Meeting
       responses:
@@ -82,10 +122,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                $ref: "#/components/schemas/Meeting"
+                $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                  a"
+              example:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
         "400":
-          description: Meeting not found or invalid id passed
+          description: Meeting not found
           content:
             application/json:
               schema:
@@ -97,7 +140,7 @@ paths:
   /api/meetings/join:
     post:
       summary: Join meeting
-      description: Returns a meeting by its id from the database
+      description: Join a meeting by providing a username and the id of meeting to join
       tags:
         - Meeting
       requestBody:
@@ -109,19 +152,40 @@ paths:
               properties:
                 meetingId:
                   type: string
+                  example: 60b78980a2ae9e260ca469ba
                 memberName:
                   type: string
-                  example: Hans Dampf
+                  example: John Doe
+                  description: Must be between 2 and 30 characters (both ends inclusive)
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  schema:
-                    $ref: "#/components/schemas/Meeting"
+                $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                  a"
+              example:
+                id: 60b78980a2ae9e260ca469ba
+                meetingName: Hans Dampf's Meeting
+                createdAt: 2022-05-27T16:49:16.316Z
+                currentTool: devils_advocat
+                done: false
+                members:
+                  - id: 60b78980a2ae9e260ca469bc
+                    name: Hans Dampf
+                    hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b70
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
+                  - id: 62a717dbc79b4a3cb7cc7cd9
+                    name: John Doe
+                    hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b71
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
         "400":
           description: Error occured
           content:
@@ -146,8 +210,10 @@ paths:
               properties:
                 meetingId:
                   type: string
+                  example: 60b78980a2ae9e260ca469ba
                 memberId:
                   type: string
+                  example: 62a717dbc79b4a3cb7cc7cd9
       responses:
         "200":
           description: OK
@@ -158,7 +224,7 @@ paths:
                 properties:
                   id:
                     type: string
-                    description: Leave message
+                    description: Success message
                     example: Left meeting successfuly
         "400":
           description: Error occured
@@ -170,12 +236,12 @@ paths:
                   error:
                     type: string
                     example: Error description
-  /api/meetings/clear:
+  /api/notifications:
     post:
-      summary: Clear Meeting
-      description: Clears all meetings from the database (DEV ONLY)
+      summary: Create Notification
+      description: Send a notification to a meeting member
       tags:
-        - DEV ONLY
+        - Notifications
       requestBody:
         required: true
         content:
@@ -183,9 +249,117 @@ paths:
             schema:
               type: object
               properties:
-                secret:
+                id:
                   type: string
-                  example: Feature only available for developers
+                memberId:
+                  type: string
+                meetingName:
+                  type: string
+                createdAt:
+                  type: string
+                done:
+                  type: boolean
+                members:
+                  type: array
+                currentTool:
+                  type: string
+              required:
+                - meetingName
+              example:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/paths/~1api~1notifications/post/requestBody/content/application~1json/\
+                  schema"
+              example:
+                id: 60b78980a2ae9e260ca469ba
+                meetingName: Hans Dampf's Meeting
+                createdAt: 2022-05-27T16:49:16.316Z
+                done: false
+                members:
+                  - id: 60b78980a2ae9e260ca469bc
+                    name: Hans Dampf
+                    hat: ""
+        "422":
+          description: Invalid or missing required field
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: creatorName is missing
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+    delete:
+      summary: Delete Notification
+      description: Delete a notification after a member has seen it
+      tags:
+        - Notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
+                  example: 60b78980a2ae9e260ca469ba
+                memberId:
+                  type: string
+                  example: 60b78980a2ae9e260ca469bc
+                notificationId:
+                  type: string
+                  example: 62a7245822f8e6531e205d54
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                example: success
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/tools:
+    post:
+      summary: Start a tool
+      description: Starts a tool for a meeting. Currently only devils hats is
+        supported. The hats will be automatically assigned to the members
+      tags:
+        - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
       responses:
         "200":
           description: OK
@@ -194,73 +368,61 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
+                  schema:
+                    id: 60b78980a2ae9e260ca469ba
+                    meetingName: Hans Dampf's Meeting
+                    createdAt: 2022-05-27T16:49:16.316Z
+                    done: false
+                    members:
+                      - id: 60b78980a2ae9e260ca469bc
+                        name: Hans Dampf
+                        hat: ""
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
                     type: string
-                    description: done message
-                    example: done
+                    example: Error description
+  /api/tools/quit:
+    post:
+      summary: Stop tool
+      description: Stop a running tool in a meeting. This endpoint will clear all hats
+        for all members and clear the currentTool.
+      tags:
+        - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/paths/~1api~1tools/post/responses/200/content/application~1json/schema\
+                  /properties/schema"
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
 servers:
   - url: https://sep-nojo-test.azurewebsites.net/
     description: Azure deployment
   - url: http://localhost:7071/
     description: Development server
-components:
-  examples:
-    exMeeting:
-      value:
-        id: 60b78980a2ae9e260ca469ba
-        creator:
-          id: 60b78980a2ae9e260ca469bc
-          name: Hans Dampf
-        creatorName: Hans Dampf
-        memberId: 60b78980a2ae9e260ca469bc
-        meetingName: Hans Dampf's Meeting
-        createdAt: 2022-05-27T16:49:16.316Z
-        done: false
-        members:
-          - id: 60b78980a2ae9e260ca469bc
-            name: Hans Dampf
-        tools: []
-  schemas:
-    Meeting:
-      type: object
-      properties:
-        id:
-          type: string
-        creator:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-        creatorName:
-          type: string
-        memberId:
-          type: string
-        meetingName:
-          type: string
-        createdAt:
-          type: string
-        done:
-          type: boolean
-        members:
-          type: array
-        tools:
-          type: array
-      required:
-        - creatorName
-        - meetingName
-      example:
-        id: 60b78980a2ae9e260ca469ba
-        creator:
-          id: 60b78980a2ae9e260ca469bc
-          name: Hans Dampf
-        creatorName: Hans Dampf
-        memberId: 60b78980a2ae9e260ca469bc
-        meetingName: Hans Dampf's Meeting
-        createdAt: 2022-05-27T16:49:16.316Z
-        done: false
-        members:
-          - id: 60b78980a2ae9e260ca469bc
-            name: Hans Dampf
-        tools: []

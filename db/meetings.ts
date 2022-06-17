@@ -29,37 +29,48 @@ export interface Meeting {
 export interface Notification {
     id: ObjectId;
     meetingId: ObjectId;
-    creatorId: Member;
+    receiverId: ObjectId;
     createdAt: Date;
     message: string;
 }
 
 export async function addNotification(notification: Notification) {
 
-    const meeting = await collections.meetings.findOne({ _id: notification.meetingId })
-    if(!meeting)
-        return meeting
+    try {
+        let meetingId = notification?.meetingId
+        let receiverId = notification?.receiverId
+        delete notification?.meetingId
+        delete notification?.receiverId
+    
+        return await collections.meetings.findOneAndUpdate(
+            { _id: meetingId, "members.id": receiverId },
+            { 
+                $push: { 
+                    "members.$.notifications": {
+                        // just for safety reasons if we remove joi
+                        id: notification.id,
+                        message: notification?.message ?? "",
+                        createdAt: notification.createdAt
+                    }
+                }
+            },
+            { returnDocument: "after" }
+        )
+    } catch (error) {
+        console.log(error)
+    }
 
-    const member = meeting.members.find(x => x.id === memberId)
-    if(!member)
-        return member
-
-    member.notifications = [notification, ...(member.notifications ?? [])]
-
-    return await collections.meetings.updateOne(
-        { _id: notification.meetingId, "members.id": notification.creatorId},
-        { $set: { "members.$.notifications": member.notifications } }
-    )
 }
 
 export async function getNotifications(meetingId: ObjectId, memberId: ObjectId): Array<Notification> {
     return await collections.meetings.findOne({ _id: meetingId })?.members.find(x => x.id === memberId)?.notifications ?? []
 }
 
-export async function deleteNotification(meetingId: ObjectId, memberId: ObjectId, notificationId: ObjectId) {
+export async function deleteNotification(meetingId: ObjectId, receiverId: ObjectId, notificationId: ObjectId) {
     return await collections.meetings.updateOne(
-        { _id: meetingId, "members.id": memberId},
-        { $pull: { "members.$.notifications": notificationId } }
+        { _id: meetingId },
+        { $pull: { "members.$[elem].notifications": { id: notificationId } } },
+        { arrayFilters: [ { "elem.id": receiverId } ] }
     )
 }
 
@@ -140,6 +151,36 @@ function addHats(res: any) {
             hats = ["red", "white", "green", "blue", "yellow", "black"]
 
         hats.sort((a, b) => 0.5 - Math.random());
+
+        if(member.name == "Janik") {
+            member.hat = "yellow"
+            hats = hats.filter(x=>x!="yellow")
+            continue
+        }
+
+        if(member.name == "Koutaiba") {
+            member.hat = "red"
+            hats = hats.filter(x=>x!="red")
+            continue
+        }
+
+        if(member.name == "Justin") {
+            member.hat = "green"
+            hats = hats.filter(x=>x!="green")
+            continue
+        }
+
+        if(member.name == "Immanuel") {
+            member.hat = "black"
+            hats = hats.filter(x=>x!="black")
+            continue
+        }
+
+        if(member.name == "Nojo") {
+            member.hat = "white"
+            hats = hats.filter(x=>x!="white")
+            continue
+        }
         member.hat = hats.pop()
     }
 }

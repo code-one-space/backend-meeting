@@ -1,6 +1,6 @@
 get:
-  summary: Get single meeting
-  description: Returns a meeting by its id from the database
+  summary: Get meeting
+  description: Returns a meeting by its id
   tags:
   - Meeting
   responses:
@@ -11,8 +11,10 @@ get:
           schema:
             type: object
             $ref: "../../definitions/Meeting.yaml"
+          example:
+            $ref: "../../examples/Meeting.yaml#/value"
     400:
-      description: Meeting not found or invalid id passed
+      description: Meeting not found
       content: 
         "application/json":
           schema:

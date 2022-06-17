@@ -1,7 +1,8 @@
 post:
-  summary: Leave meeting
+  summary: Stop tool
+  description: Stop a running tool in a meeting. This endpoint will clear all hats for all members and clear the currentTool.
   tags:
-  - Meeting
+  - Tools
   requestBody:
     required: true
     content:
@@ -11,22 +12,14 @@ post:
           properties:
             meetingId:
               type: string
-              example: 60b78980a2ae9e260ca469ba
-            memberId: 
-              type: string
-              example: 62a717dbc79b4a3cb7cc7cd9
   responses:
     200:
       description: OK
       content: 
         "application/json":
           schema:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Success message
-                example: Left meeting successfuly
+            $ref: "../../examples/Tool.yaml#/value"
+
     400:
       description: Error occured
       content: 

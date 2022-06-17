@@ -8,6 +8,8 @@ post:
       application/json:
         schema:
           $ref: "../../definitions/Meeting.yaml"
+        example:
+          $ref: "../../examples/Meeting.yaml#/create"
   responses:
     200:
       description: OK
@@ -16,7 +18,7 @@ post:
           schema:
             $ref: "../../definitions/Meeting.yaml"
           example:
-            $ref: "../../examples/Meeting.yaml"
+            $ref: "../../examples/Meeting.yaml#/value"
     422:
       description: Invalid or missing required field
       content: 
@@ -52,3 +54,5 @@ get:
             type: array
             items:
               $ref: "../../definitions/Meeting.yaml"
+        example:
+          $ref: "../../examples/Meeting.yaml#/value"

@@ -1,1 +1,1 @@
-redoc-cli bundle spec.yaml -o ../public/index.html
+redoc-cli build spec.yaml -o ./index.html
