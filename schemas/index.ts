@@ -2,6 +2,7 @@
 import { createMeetingSchema } from "./meeting-create.schema"
 import { joinMeetingSchema } from "./meeting-join.schema"
 import { leaveMeetingSchema } from "./meeting-leave.schema"
+import { getMeetingSchema } from "./meeting-get.schema"
 
 // member
 import { memberSchema } from "./member.schema"
@@ -28,6 +29,7 @@ export {
     createMeetingSchema,
     joinMeetingSchema,
     leaveMeetingSchema,
+    getMeetingSchema,
 
     memberSchema,
 
