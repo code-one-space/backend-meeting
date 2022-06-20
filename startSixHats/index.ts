@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { startTool } from "../db/meetings"
-import { toolCreateSchema } from "../schemas/tool-create.schema"
+import { startSixHats } from "../db"
+import { toolCreateSchema } from "../schemas/sixhats-stop.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
@@ -25,13 +25,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     // add the tool to the database
-    const meeting = await startTool(new ObjectId(req.body.meetingId)) as any
+    const meeting = await startSixHats(new ObjectId(req.body.meetingId)) as any
 
     // if the operation was unsuccessful (empty object) return an error message
     if(!!!Object.keys(meeting).length || !!meeting?.error) {
         context.res = {
             status: 422,
-            body: meeting?.error ?? "Failed to start tool"
+            body: meeting?.error ?? "Failed to start sixhats"
         }
         return
     }

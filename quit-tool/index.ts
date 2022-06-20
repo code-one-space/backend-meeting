@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { stopTool } from "../db/meetings"
+import { stopSixHats } from "../db/meetings"
 import { toolQuitSchema } from "../schemas/tool-quit.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
@@ -22,7 +22,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     // add the tool to the database
-    const meeting = await stopTool(data.meetingId)
+    const meeting = await stopSixHats(data.meetingId)
 
     // return data
     context.res = {
