@@ -1,6 +1,6 @@
 # GET http://localhost:7071/api/meetings/join
-GET http://localhost:7071/api/meetings
+GET http://localhost:7071/api/meetings/62b07e2f45f926d56a7ea626
 
 ### Azure Deployment
 
-GET https://sep-nojo-test.azurewebsites.net/api/meetings
+GET https://sep-nojo-test.azurewebsites.net/api/meetings/62b07e2f45f926d56a7ea626
