@@ -1,7 +1,5 @@
 const Joi = require("joi-oid")
 
-const schema = Joi.object({
+export let stopTimerSchema = Joi.object({
     meetingId: Joi.objectId().required(),
 })
-
-module.exports.sixHatsQuitSchema = schema

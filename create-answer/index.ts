@@ -8,7 +8,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     const answer = {
         meetingId: new ObjectId(req.body?.meetingId),
         surveyId: new ObjectId(req.body?.surveyId),
-        answer: req.body?.answers ?? []
+        answers: req.body?.answers ?? []
     }
 
     const validateResult = createAnswerSchema.validate(answer)
@@ -25,7 +25,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     delete answer.meetingId; // meetingId should not be written to db
     delete answer.surveyId; // surveyId should not be written to db
 
-    const result = await addAnswer(meetingId, surveyId, answer as any) // ts doesnt allow the empty array
+    const result = await addAnswer(meetingId, surveyId, answer.answers as any) as any // ts doesnt allow the empty array
     if (!!!Object.keys(result ?? {}).length) {
         context.res = {
             status: 422,
@@ -36,7 +36,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     context.res = {
         status: 200,
-        body: result
+        body: result?.value
     }
 }
 

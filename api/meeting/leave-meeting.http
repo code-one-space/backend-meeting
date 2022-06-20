@@ -2,8 +2,8 @@
 POST http://localhost:7071/api/meetings/leave
 
 {
-    "meetingId": "628b61f1a61e94b859575a8b",
-    "memberId": "628beb8a75efa9320a3f54ba"
+    "meetingId": "62b075005386c6afbf17be19",
+    "memberId": "62b075530566f8a6c08b1bc2"
 }
 
 ###

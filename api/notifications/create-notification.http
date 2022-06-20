@@ -1,8 +1,8 @@
 POST http://localhost:7071/api/notifications
 
 {
-    "meetingId": "62a740700b2f37e088c34deb",
-    "receiverId": "62a740700b2f37e088c34dea",
+    "meetingId": "62b075005386c6afbf17be19",
+    "receiverId": "62b075135386c6afbf17be1a",
     "message": "Kuchen uwu"
 }
 

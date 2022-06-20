@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-const clear = require("../db/index.js");
+const { clear } = require("../db/index.js");
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
@@ -10,7 +10,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
         return
     }
-    console.log("meow" + Object.keys(clear))
     await clear();
     context.res = {
         status: 200,

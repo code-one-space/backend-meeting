@@ -4,8 +4,6 @@ import { Meeting } from "../../interfaces";
 
 export async function startTimer(meetingId: ObjectId, unixmillis: number): Promise<Meeting> {
 
-    let time = new Date(unixmillis)
-
     // get the meeting, can't use findandupdateone because we need add dynamic data
     let res = await collections.meetings.findOne({ _id: meetingId })
 
@@ -23,7 +21,7 @@ export async function startTimer(meetingId: ObjectId, unixmillis: number): Promi
         $set: {
             timer: {
                 active: true,
-                time: time
+                time: unixmillis
             }
         }
     },

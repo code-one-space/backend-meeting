@@ -1,8 +1,8 @@
-POST http://localhost:7071/api/surveys
+POST http://localhost:7071/api/surveys/answers
 
 {
-    "meetingId": "62a707677939ed0a34c324b2",
-    "surveyId": "todo: objectid einfügen",
+    "meetingId": "62b07aecbbb8e4e361ddf639",
+    "surveyId": "62b07afdbbb8e4e361ddf63b",
     "answers": [
         {
             "memberName": "Nojo",
@@ -17,7 +17,7 @@ POST http://localhost:7071/api/surveys
 
 ### Azure Deployment
 
-POST https://sep-nojo-test.azurewebsites.net/api/surveys
+POST https://sep-nojo-test.azurewebsites.net/api/surveys/answers
 
 {
     "meetingId": "62a707677939ed0a34c324b2",

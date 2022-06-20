@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/create-notification/index.js"
+  "scriptFile": "../dist/create-answer/index.js"
 }

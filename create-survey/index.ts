@@ -11,7 +11,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         question: req.body?.question ?? "",
         creatorName: req.body?.creatorName ?? "",
         choices: req.body?.choices ?? [],
-        answer: [] // always empty on creation
+        answers: [] // always empty on creation
     }
 
     const validateResult = createSurveySchema.validate(survey)
@@ -26,7 +26,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     let meetingId = survey.meetingId;
     delete survey.meetingId; // meetingId should not be written to db
 
-    const result = await createSurvey(meetingId, survey)
+    const result = await createSurvey(meetingId, survey) as any
     if (!!!Object.keys(result ?? {}).length) {
         context.res = {
             status: 422,
@@ -37,7 +37,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     context.res = {
         status: 200,
-        body: result
+        body: result?.value
     }
 }
 
