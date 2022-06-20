@@ -1,18 +1,11 @@
-const Joi = require("joi")
+const Joi = require("joi-oid")
 
 const schema = Joi.object({
-
-    id: Joi.string()
-        .hex()
-        .length(24),
-
+    id: Joi.objectId().required(),
     name: Joi.string()
         .min(2)
         .max(30)
-        .alphanum()
         .required(),
 })
 
-module.exports = {
-    memberSchema: schema
-}
+module.exports.memberSchema = schema

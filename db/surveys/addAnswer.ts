@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { collections } from "../mongodb-client";
 import { Answer } from "../interfaces"
 
-export async function addNotification(meetingId: ObjectId, surveyId: ObjectId, answer: Answer): Promise<any> {
+export async function addAnswer(meetingId: ObjectId, surveyId: ObjectId, answer: Answer): Promise<any> {
 
     try {
         return await collections.meetings.findOneAndUpdate(

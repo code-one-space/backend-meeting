@@ -1,16 +1,8 @@
-const Joi = require("joi")
+const Joi = require("joi-oid")
 
 const schema = Joi.object({
-
-    meetingId: Joi.string()
-        .hex()
-        .length(24)
-        .required(),
-
-    memberId: Joi.string()
-        .hex()
-        .length(24)
-        .required(),
+    meetingId: Joi.objectId().required(),
+    memberId: Joi.objectId().required(),
 })
 
 module.exports.meetingLeaveSchema = schema;

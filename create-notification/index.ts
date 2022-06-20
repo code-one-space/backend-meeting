@@ -13,8 +13,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         message: req.body.message?.trim() ?? "",
     }
 
-    console.log(notification)
-
     const validateResult = notificationCreateSchema.validate(notification)
     if (validateResult.error) {
         context.res = {
@@ -28,7 +26,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if (!!!Object.keys(addResult ?? {}).length) {
         context.res = {
             status: 422,
-            body: "Could not send notification2",
+            body: "Could not send notification",
         }
         return
     }
