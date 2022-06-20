@@ -21,7 +21,6 @@ export async function startTimer(meetingId: ObjectId, unixmillis: number): Promi
     // document.save() is not safe, i know that using two requests is bad practice
     res = await collections.meetings.findOneAndUpdate({ _id: meetingId }, {
         $set: {
-            members: res.members,
             timer: {
                 active: true,
                 time: time

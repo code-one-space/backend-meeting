@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { stopSixHats } from "../db"
-import { toolQuitSchema } from "../schemas/sixhats-quit.schema"
+import { stopTimer } from "../db"
+import { timerStopSchema } from "../schemas/timer-stop.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
@@ -10,7 +10,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     // validate userdata
-    const result = toolQuitSchema.validate(data)
+    const result = timerStopSchema.validate(data)
     
     // if invalid userdata return the error messages
     if (result.error) {
@@ -22,7 +22,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     // add the tool to the database
-    const meeting = await stopSixHats(data.meetingId)
+    const meeting = await stopTimer(data?.meetingId)
 
     // return data
     context.res = {

@@ -1,12 +1,12 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { startSixHats } from "../db"
-import { toolCreateSchema } from "../schemas/sixhats-stop.schema"
+import { startTimer } from "../db"
+import { timerStartschema } from "../schemas/timer-start.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
     // create a new object for the tool
-    const newTool = {
+    const timer = {
         meetingId: new ObjectId(req.body?.meetingId.trim()),
         timer: {
             active: true,
@@ -14,10 +14,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
     }
 
-    // validate userdata
-    const result = toolCreateSchema.validate(newTool)
+    // validate request
+    const result = timerStartschema.validate(timer)
     
-    // if invalid userdata return the error messages
+    // if invalid request return the error messages
     if (result.error) {
         context.res = {
             status: 422,
@@ -26,14 +26,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return
     }
 
-    // add the tool to the database
-    const meeting = await startSixHats(new ObjectId(req.body.meetingId)) as any
+    const meeting = await startTimer(timer.meetingId, timer.timer.time) as any
 
     // if the operation was unsuccessful (empty object) return an error message
     if(!!!Object.keys(meeting).length || !!meeting?.error) {
         context.res = {
             status: 422,
-            body: meeting?.error ?? "Failed to start sixhats"
+            body: meeting?.error ?? "Failed to start timer"
         }
         return
     }
