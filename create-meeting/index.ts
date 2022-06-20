@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
 import { addMeeting } from "../db"
-import { meetingCreateSchema } from "../schemas/meeting-create.schema"
+import { createMeetingSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         currentTool: ""
     }
 
-    const result = meetingCreateSchema.validate(newMeeting)
+    const result = createMeetingSchema.validate(newMeeting)
     if (result.error) {
         context.res = {
             status: 422,

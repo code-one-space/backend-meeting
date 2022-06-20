@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
 import { startTimer } from "../db"
-import { timerStartschema } from "../schemas/timer-start.schema"
+import { startTimerSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
@@ -15,7 +15,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     // validate request
-    const result = timerStartschema.validate(timer)
+    const result = startTimerSchema.validate(timer)
     
     // if invalid request return the error messages
     if (result.error) {

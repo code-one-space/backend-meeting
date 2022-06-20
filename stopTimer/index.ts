@@ -1,16 +1,18 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { leaveMeeting } from "../db"
 import { ObjectId } from "mongodb"
-import { leaveMeetingSchema } from "../schemas"
+import { stopTimer } from "../db"
+import { timerStopSchema } from "../schemas/timer-stop.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-
-    const leave = {
-        meetingId: new ObjectId(req.body?.meetingId.trim()),
-        memberId: new ObjectId(req.body?.memberId.trim()),
+    
+    const data = {
+        meetingId: new ObjectId(req.body?.meetingId.trim())
     }
 
-    const result = leaveMeetingSchema.validate(leave)
+    // validate userdata
+    const result = timerStopSchema.validate(data)
+    
+    // if invalid userdata return the error messages
     if (result.error) {
         context.res = {
             status: 422,
@@ -19,13 +21,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return
     }
 
-    await leaveMeeting(new ObjectId(leave.meetingId), new ObjectId(leave.memberId))
+    // add the tool to the database
+    const meeting = await stopTimer(data?.meetingId)
 
+    // return data
     context.res = {
         status: 200,
-        body: {
-            message: "Left meeting successfully",
-        },
+        body: meeting
     }
 }
 

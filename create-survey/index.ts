@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
 import { createSurvey } from "../db"
-import { surveyCreateSchema } from "../schemas/survey-create.schema"
+import { createSurveySchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         answer: [] // always empty on creation
     }
 
-    const validateResult = surveyCreateSchema.validate(survey)
+    const validateResult = createSurveySchema.validate(survey)
     if (validateResult.error) {
         context.res = {
             status: 422,

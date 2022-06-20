@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
 import { addNotification } from "../db"
-import { notificationCreateSchema } from "../schemas/notification-create.schema"
+import { createNotificationSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -13,7 +13,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         message: req.body.message?.trim() ?? "",
     }
 
-    const validateResult = notificationCreateSchema.validate(notification)
+    const validateResult = createNotificationSchema.validate(notification)
     if (validateResult.error) {
         context.res = {
             status: 422,

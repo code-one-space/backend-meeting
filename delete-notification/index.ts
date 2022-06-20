@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { deleteNotification } from "../db"
 import { ObjectId } from "mongodb";
-import { notificationDeleteSchema } from "../schemas/notification-delete.schema"
+import { deleteNotificationSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -11,7 +11,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         notificationId: new ObjectId(req.body.notificationId.trim())
     }
 
-    const validateResult = notificationDeleteSchema.validate(deletion)
+    const validateResult = deleteNotificationSchema.validate(deletion)
     if (validateResult.error) {
         context.res = {
             status: 422,

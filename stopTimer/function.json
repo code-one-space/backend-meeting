@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "timer/start",
+      "route": "timer/stop",
       "methods": [
         "post"
       ]
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/startTimer/index.js"
+  "scriptFile": "../dist/stopTimer/index.js"
 }

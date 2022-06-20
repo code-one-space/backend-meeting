@@ -1,13 +1,13 @@
 # POST http://localhost:7071/api/todos
 
-POST http://localhost:7071/api/sixhats/quit
+POST http://localhost:7071/api/sixhats/stop
 
 {
     "meetingId": "62a707677939ed0a34c324b2"
 }
 
 ###
-POST https://sep-nojo-test.azurewebsites.net/api/sixhats/quit
+POST https://sep-nojo-test.azurewebsites.net/api/sixhats/stop
 
 {
     "meetingId": "6294b371dd7aa23a8a41fcd2",

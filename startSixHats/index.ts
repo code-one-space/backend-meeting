@@ -1,17 +1,34 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
 import { startSixHats } from "../db"
+import { startSixHatsSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
-    // add the tool to the database
-    const meeting = await startSixHats(new ObjectId(req.body?.meetingId.trim())) as any
+    let meeting = {
+        meetingId: new ObjectId(req.body?.meetingId.trim())
+    }
 
-    // if the operation was unsuccessful (empty object) return an error message
-    if(!!!Object.keys(meeting).length || !!meeting?.error) {
+    // validate request
+    const validation = startSixHatsSchema.validate(meeting)
+        
+    // if invalid request return the error messages
+    if (validation.error) {
         context.res = {
             status: 422,
-            body: meeting?.error ?? "Failed to start sixhats"
+            body: validation.error.details.map(x => x.message),
+        }
+        return
+    }
+
+    // add the tool to the database
+    const result = await startSixHats(meeting?.meetingId) as any
+
+    // if the operation was unsuccessful (empty object) return an error message
+    if(!!!Object.keys(result).length || !!result?.error) {
+        context.res = {
+            status: 422,
+            body: result?.error ?? "Failed to start sixhats"
         }
         return
     }
@@ -19,7 +36,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     // return data
     context.res = {
         status: 200,
-        body: meeting,
+        body: result,
     }
 }
 

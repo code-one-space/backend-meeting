@@ -1,33 +1,42 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { stopTimer } from "../db"
-import { timerStopSchema } from "../schemas/timer-stop.schema"
+import { stopSixHats } from "../db"
+import { stopSixHatsSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
-    const data = {
+    let meeting = {
         meetingId: new ObjectId(req.body?.meetingId.trim())
     }
 
-    // validate userdata
-    const result = timerStopSchema.validate(data)
-    
-    // if invalid userdata return the error messages
-    if (result.error) {
+    // validate request
+    const validation = stopSixHatsSchema.validate(meeting)
+        
+    // if invalid request return the error messages
+    if (validation.error) {
         context.res = {
             status: 422,
-            body: result.error.details.map(x => x.message),
+            body: validation.error.details.map(x => x.message),
         }
         return
     }
 
     // add the tool to the database
-    const meeting = await stopTimer(data?.meetingId)
+    const result = await stopSixHats(meeting?.meetingId) as any
+
+    // if the operation was unsuccessful (empty object) return an error message
+    if(!!!Object.keys(result).length || !!result?.error) {
+        context.res = {
+            status: 422,
+            body: result?.error ?? "Failed to start sixhats"
+        }
+        return
+    }
 
     // return data
     context.res = {
         status: 200,
-        body: meeting
+        body: result,
     }
 }
 

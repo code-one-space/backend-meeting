@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "sixhats/quit",
+      "route": "sixhats/stop",
       "methods": [
         "post"
       ]
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/quit-tool/index.js"
+  "scriptFile": "../dist/stopSixHats/index.js"
 }

@@ -1,6 +1,6 @@
 import { collections } from "../mongodb-client";
 
-export async function clearAllMeetings() {
+export default async function clear() {
 
     await collections.meetings.deleteMany({})
 }
