@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { deleteNotification } from "../db/meetings"
+import { deleteNotification } from "../db"
 import { ObjectId } from "mongodb";
 import { notificationDeleteSchema } from "../schemas/notification-delete.schema"
 

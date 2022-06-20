@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { joinMeeting } from "../db/meetings"
+import { joinMeeting } from "../db"
 import { ObjectId } from "mongodb"
 import { meetingJoinSchema } from "../schemas/meeting-join.schema"
 

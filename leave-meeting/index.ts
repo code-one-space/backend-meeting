@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { leaveMeeting } from "../db/meetings"
+import { leaveMeeting } from "../db"
 import { ObjectId } from "mongodb"
 import { meetingLeaveSchema } from "../schemas/meeting-leave.schema"
 
