@@ -6,10 +6,10 @@ import { meetingCreateSchema } from "../schemas/meeting-create.schema"
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     const newMeeting = {
-        creatorName: req.body.creatorName?.trim() ?? "",
-        meetingName: req.body.meetingName?.trim() ?? "",
+        creatorName: new ObjectId(req.body.creatorName?.trim()),
+        meetingName: new ObjectId(req.body.meetingName?.trim()),
         createdAt: new Date(),
-        done: false,
+        done: false, // future: be able to archive held meetings, e.g. with image send feature useful
         members: [],
         currentTool: ""
     }

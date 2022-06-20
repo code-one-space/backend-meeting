@@ -4,4 +4,4 @@ const schema = Joi.object({
     meetingId: Joi.objectId().required(),
 })
 
-module.exports.toolQuitSchema = schema
+module.exports.sixHatsQuitSchema = schema

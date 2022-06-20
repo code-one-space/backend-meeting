@@ -5,12 +5,9 @@ import { getSingleMeeting } from "../db/meetings";
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
     try {
-        const id = req.params.id as string;
         context.log('HTTP trigger function processed a request.');
-        const meeting = await getSingleMeeting(new ObjectId(id));
-        console.log(meeting)
+        const meeting = await getSingleMeeting(new ObjectId(req.params?.meetingId.trim()));
         context.res = {
-            // status: 200, /* Defaults to 200 */
             body: meeting
         };
     } catch (error) {

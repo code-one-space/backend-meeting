@@ -1,12 +1,12 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
 import { stopSixHats } from "../db"
-import { toolQuitSchema } from "../schemas/tool-quit.schema"
+import { toolQuitSchema } from "../schemas/sixhats-quit.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
     const data = {
-        meetingId: new ObjectId(req.body.meetingId.trim())
+        meetingId: new ObjectId(req.body?.meetingId.trim())
     }
 
     // validate userdata

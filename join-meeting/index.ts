@@ -6,8 +6,8 @@ import { meetingJoinSchema } from "../schemas/meeting-join.schema"
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     const join = {
-        meetingId: req.body.meetingId ?? "",
-        memberName: req.body.memberName?.trim() ?? "",
+        meetingId: new ObjectId(req.body?.meetingId.trim()),
+        memberName: new ObjectId(req.body.memberName?.trim()),
     }
 
     const result = meetingJoinSchema.validate(join)

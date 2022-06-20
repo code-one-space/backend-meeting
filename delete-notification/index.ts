@@ -6,9 +6,9 @@ import { notificationDeleteSchema } from "../schemas/notification-delete.schema"
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     const deletion = {
-        meetingId: new ObjectId(req.body.meetingId ?? ""),
-        receiverId: new ObjectId(req.body.receiverId ?? ""),
-        notificationId: new ObjectId(req.body.notificationId ?? "")
+        meetingId: new ObjectId(req.body?.meetingId.trim()),
+        receiverId: new ObjectId(req.body.receiverId.trim()),
+        notificationId: new ObjectId(req.body.notificationId.trim())
     }
 
     const validateResult = notificationDeleteSchema.validate(deletion)

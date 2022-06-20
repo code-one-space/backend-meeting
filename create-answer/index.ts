@@ -1,7 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { createSurvey } from "../db"
-import { addAnswer } from "../db/surveys/addAnswer"
+import { addAnswer } from "../db"
 import { answerCreateSchema } from "../schemas/answer-create.schema"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {

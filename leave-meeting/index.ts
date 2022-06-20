@@ -6,8 +6,8 @@ import { meetingLeaveSchema } from "../schemas/meeting-leave.schema"
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     const leave = {
-        meetingId: req.body.meetingId ?? "",
-        memberId: req.body.memberId ?? "",
+        meetingId: new ObjectId(req.body?.meetingId.trim()),
+        memberId: new ObjectId(req.body?.memberId.trim()),
     }
 
     const result = meetingLeaveSchema.validate(leave)
