@@ -12,8 +12,9 @@ export async function startTimer(meetingId: ObjectId, unixmillis: number): Promi
         return {} as any
 
     // nullcheck for old versions of the app
-    if(res?.timer.active)
-        return { error: "Timer is already active" } as any
+    // for usability just replace the old timer
+    // if(res?.timer.active)
+    //     return { error: "Timer is already active" } as any
 
     // update the dataset in the db
     // document.save() is not safe, i know that using two requests is bad practice
