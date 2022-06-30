@@ -15,16 +15,13 @@ post:
     200:
       description: OK
       content: 
-        "application/json":
-          schema:
-            type: object
-            properties:
-              schema:
-                $ref: "../../examples/Survey.yaml#/withAnswers"
+        application/json:
+          example:
+            $ref: "../../examples/Meeting.yaml#/withAnswers"
     400:
       description: Error occured
       content: 
-        "application/json":
+        application/json:
           schema:
             type: object
             properties:

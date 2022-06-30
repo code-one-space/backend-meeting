@@ -14,12 +14,16 @@ post:
               type: string
           required:
           - meetingId
+        example:
+          $ref: "../../examples/Sixhats.yaml#/stop"
   responses:
     200:
       description: OK
       content: 
         "application/json":
           schema:
+            $ref: "../../definitions/Meeting.yaml"
+          example:
             $ref: "../../examples/Meeting.yaml#/value"
 
     400:

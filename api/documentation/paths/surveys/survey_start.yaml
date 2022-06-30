@@ -17,10 +17,9 @@ post:
       content: 
         "application/json":
           schema:
-            type: object
-            properties:
-              schema:
-                $ref: "../../examples/Survey.yaml#/value"
+            $ref: "../../definitions/Meeting.yaml"
+          example:
+            $ref: "../../examples/Meeting.yaml#/value"
     400:
       description: Error occured
       content: 

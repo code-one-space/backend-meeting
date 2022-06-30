@@ -16,11 +16,8 @@ post:
       description: OK
       content: 
         "application/json":
-          schema:
-            type: object
-            properties:
-              schema:
-                $ref: "../../examples/Meeting.yaml#/stoppedTimer"
+          example:
+            $ref: "../../examples/Meeting.yaml#/stoppedTimer"
     400:
       description: Error occured
       content: 

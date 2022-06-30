@@ -29,3 +29,17 @@ submitAnswer:
   - meetingId
   - surveyId
   - answers
+
+start:
+  type: object
+  properties:
+    meetingId:
+      type: string
+    question:
+      type: string
+    creatorName:
+      type: string
+    choices:
+      type: array
+      items:
+        type: string

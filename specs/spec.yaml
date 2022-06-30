@@ -397,6 +397,8 @@ paths:
                   type: string
               required:
                 - meetingId
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
       responses:
         "200":
           description: OK
@@ -408,32 +410,32 @@ paths:
                   schema:
                     $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
                       a"
-                  example:
-                    id: 60b78980a2ae9e260ca469ba
-                    meetingName: Hans Dampf's Meeting
-                    createdAt: 2022-05-27T16:49:16.316Z
-                    currentTool: devils_advocat
-                    done: false
-                    members:
-                      - id: 60b78980a2ae9e260ca469bc
-                        name: Hans Dampf
-                        hat: red
-                        notifications:
-                          - id: 62a72af0bcae5a9404346b70
-                            message: This is an example message
-                            createdAt: 2022-05-27T16:49:16.316Z
-                    timer:
-                      active: true
-                      time: 1656577859303
-                    surveys:
-                      - id: 62bd63bdf51bdc7f9adcfa76
-                        question: This is an example question.
-                        creatorName: Nojo
-                        choices:
-                          - Option 1
-                          - Definitely no
-                          - Another option
-                        answers: []
+                example:
+                  id: 60b78980a2ae9e260ca469ba
+                  meetingName: Hans Dampf's Meeting
+                  createdAt: 2022-05-27T16:49:16.316Z
+                  currentTool: devils_advocat
+                  done: false
+                  members:
+                    - id: 60b78980a2ae9e260ca469bc
+                      name: Hans Dampf
+                      hat: red
+                      notifications:
+                        - id: 62a72af0bcae5a9404346b70
+                          message: This is an example message
+                          createdAt: 2022-05-27T16:49:16.316Z
+                  timer:
+                    active: true
+                    time: 1656577859303
+                  surveys:
+                    - id: 62bd63bdf51bdc7f9adcfa76
+                      question: This is an example question.
+                      creatorName: Nojo
+                      choices:
+                        - Option 1
+                        - Definitely no
+                        - Another option
+                      answers: []
         "400":
           description: Error occured
           content:
@@ -462,12 +464,17 @@ paths:
                   type: string
               required:
                 - meetingId
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
+                $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                  a"
+              example:
                 $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
                   mple"
         "400":
@@ -521,17 +528,11 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  schema:
-                    id: 60b78980a2ae9e260ca469ef
-                    question: This is an example question
-                    creatorName: Nojo
-                    choices:
-                      - Option 1
-                      - Definitely no
-                      - Another option
-                    answers: []
+                $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                  a"
+              example:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
         "400":
           description: Error occured
           content:
@@ -578,12 +579,26 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  schema:
-                    id: 60b78980a2ae9e260ca469ef
-                    question: This is an example question
+              example:
+                id: 60b78980a2ae9e260ca469ba
+                meetingName: Hans Dampf's Meeting
+                createdAt: 2022-05-27T16:49:16.316Z
+                done: false
+                currentTool: devils_advocat
+                members:
+                  - id: 60b78980a2ae9e260ca469bc
+                    name: Hans Dampf
+                    hat: ""
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b70
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
+                timer:
+                  active: true
+                  time: 1656577859303
+                surveys:
+                  - id: 62bd63bdf51bdc7f9adcfa76
+                    question: This is an example question.
                     creatorName: Nojo
                     choices:
                       - Option 1
@@ -591,9 +606,7 @@ paths:
                       - Another option
                     answers:
                       - memberName: Nojo
-                        answer: Custom Text
-                      - memberName: Nojo
-                        answer: Option 1
+                        answe: Option 1
         "400":
           description: Error occured
           content:
@@ -633,12 +646,9 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  schema:
-                    $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
-                      mple"
+              example:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
         "400":
           description: Error occured
           content:
@@ -673,35 +683,32 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  schema:
-                    id: 60b78980a2ae9e260ca469ba
-                    meetingName: Hans Dampf's Meeting
-                    createdAt: 2022-05-27T16:49:16.316Z
-                    currentTool: devils_advocat
-                    done: false
-                    members:
-                      - id: 60b78980a2ae9e260ca469bc
-                        name: Hans Dampf
-                        hat: red
-                        notifications:
-                          - id: 62a72af0bcae5a9404346b70
-                            message: This is an example message
-                            createdAt: 2022-05-27T16:49:16.316Z
-                    timer:
-                      active: false
-                      time: -1
-                    surveys:
-                      - id: 62bd63bdf51bdc7f9adcfa76
-                        question: This is an example question.
-                        creatorName: Nojo
-                        choices:
-                          - Option 1
-                          - Definitely no
-                          - Another option
-                        answers: []
+              example:
+                id: 60b78980a2ae9e260ca469ba
+                meetingName: Hans Dampf's Meeting
+                createdAt: 2022-05-27T16:49:16.316Z
+                currentTool: devils_advocat
+                done: false
+                members:
+                  - id: 60b78980a2ae9e260ca469bc
+                    name: Hans Dampf
+                    hat: red
+                    notifications:
+                      - id: 62a72af0bcae5a9404346b70
+                        message: This is an example message
+                        createdAt: 2022-05-27T16:49:16.316Z
+                timer:
+                  active: false
+                  time: -1
+                surveys:
+                  - id: 62bd63bdf51bdc7f9adcfa76
+                    question: This is an example question.
+                    creatorName: Nojo
+                    choices:
+                      - Option 1
+                      - Definitely no
+                      - Another option
+                    answers: []
         "400":
           description: Error occured
           content:
