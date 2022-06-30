@@ -1,27 +1,24 @@
 post:
-  summary: Start a tool
-  description: Starts a tool for a meeting. Currently only devils hats is supported. The hats will be automatically assigned to the members
+  summary: Delete Notification
+  description: Delete a notification after a member has seen it
   tags:
-  - Tools
+  - Notifications
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            meetingId:
-              type: string
+          $ref: "../../definitions/Notification.yaml#/delete"
+        example:
+          $ref: "../../examples/Notification.yaml#/delete"
   responses:
     200:
       description: OK
       content: 
         "application/json":
           schema:
-            type: object
-            properties:
-              schema:
-                $ref: "../../examples/Tool.yaml#/value"
+            type: string
+            example: success
     400:
       description: Error occured
       content: 

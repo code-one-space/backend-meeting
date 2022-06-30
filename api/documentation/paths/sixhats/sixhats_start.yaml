@@ -1,8 +1,8 @@
 post:
-  summary: Stop tool
-  description: Stop a running tool in a meeting. This endpoint will clear all hats for all members and clear the currentTool.
+  summary: Start six hats
+  description: Starts six hats for a meeting. The hats will be automatically randomly assigned to the members
   tags:
-  - Tools
+  - Six Hats
   requestBody:
     required: true
     content:
@@ -12,14 +12,20 @@ post:
           properties:
             meetingId:
               type: string
+          required:
+          - meetingId
   responses:
     200:
       description: OK
       content: 
         "application/json":
           schema:
-            $ref: "../../examples/Tool.yaml#/value"
-
+            type: object
+            properties:
+              schema:
+                $ref: "../../definitions/Meeting.yaml"
+              example:
+                $ref: "../../examples/Meeting.yaml#/withHats"
     400:
       description: Error occured
       content: 

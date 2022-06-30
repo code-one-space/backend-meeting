@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  version: 1.1.0
+  version: 1.2.7
   title: Meetings-Begleitapp API
   description: This is the documentation of the Meetings-Begleitapp API. If you
     encountered a bug, please contact us with the subject "API - Bug report" and
@@ -42,11 +42,15 @@ paths:
                   type: array
                 currentTool:
                   type: string
+                timer:
+                  type: object
+                  properties:
+                    active:
+                      type: boolean
+                    time:
+                      type: number
               required:
                 - meetingName
-              example:
-                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
-                  mple"
             example:
               meetingName: Hans Dampf's Meeting
               creatorName: Hans Dampf
@@ -72,6 +76,18 @@ paths:
                       - id: 62a72af0bcae5a9404346b70
                         message: This is an example message
                         createdAt: 2022-05-27T16:49:16.316Z
+                timer:
+                  active: true
+                  time: 1656577859303
+                surveys:
+                  - id: 62bd63bdf51bdc7f9adcfa76
+                    question: This is an example question.
+                    creatorName: Nojo
+                    choices:
+                      - Option 1
+                      - Definitely no
+                      - Another option
+                    answers: []
         "422":
           description: Invalid or missing required field
           content:
@@ -107,9 +123,9 @@ paths:
                 items:
                   $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
                     a"
-            example:
-              $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
-                mple"
+              example:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
   "/api/meetings/{id}":
     get:
       summary: Get meeting
@@ -157,6 +173,9 @@ paths:
                   type: string
                   example: John Doe
                   description: Must be between 2 and 30 characters (both ends inclusive)
+              required:
+                - meetingId
+                - memberName
       responses:
         "200":
           description: OK
@@ -186,6 +205,18 @@ paths:
                       - id: 62a72af0bcae5a9404346b71
                         message: This is an example message
                         createdAt: 2022-05-27T16:49:16.316Z
+                timer:
+                  active: true
+                  time: 1656577859303
+                surveys:
+                  - id: 62bd63bdf51bdc7f9adcfa76
+                    question: This is an example question.
+                    creatorName: Nojo
+                    choices:
+                      - Option 1
+                      - Definitely no
+                      - Another option
+                    answers: []
         "400":
           description: Error occured
           content:
@@ -214,6 +245,9 @@ paths:
                 memberId:
                   type: string
                   example: 62a717dbc79b4a3cb7cc7cd9
+              required:
+                - meetingId
+                - memberId
       responses:
         "200":
           description: OK
@@ -251,23 +285,22 @@ paths:
               properties:
                 id:
                   type: string
-                memberId:
+                meetingId:
                   type: string
-                meetingName:
+                receiverId:
                   type: string
                 createdAt:
                   type: string
-                done:
-                  type: boolean
-                members:
-                  type: array
-                currentTool:
+                message:
                   type: string
               required:
-                - meetingName
-              example:
-                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
-                  mple"
+                - meetingId
+                - receiverId
+                - message
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
+              receiverId: 62bd5e41d66b03eafa8e40d8
+              message: Can i ask a question?
       responses:
         "200":
           description: OK
@@ -277,14 +310,10 @@ paths:
                 $ref: "#/paths/~1api~1notifications/post/requestBody/content/application~1json/\
                   schema"
               example:
-                id: 60b78980a2ae9e260ca469ba
-                meetingName: Hans Dampf's Meeting
-                createdAt: 2022-05-27T16:49:16.316Z
-                done: false
-                members:
-                  - id: 60b78980a2ae9e260ca469bc
-                    name: Hans Dampf
-                    hat: ""
+                id: 60b78980a2ae9e260ca469ef
+                meetingId: 60b78980a2ae9e260ca469ba
+                receiverId: 62bd5e41d66b03eafa8e40d8
+                message: Come on, time's up!
         "422":
           description: Invalid or missing required field
           content:
@@ -294,7 +323,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: creatorName is missing
+                    example: meetingId is invalid
         "500":
           description: Internal server error
           content:
@@ -305,7 +334,8 @@ paths:
                   error:
                     type: string
                     example: Error description
-    delete:
+  /api/notifications/delete:
+    post:
       summary: Delete Notification
       description: Delete a notification after a member has seen it
       tags:
@@ -318,14 +348,19 @@ paths:
               type: object
               properties:
                 meetingId:
-                  type: string
-                  example: 60b78980a2ae9e260ca469ba
-                memberId:
-                  type: string
-                  example: 60b78980a2ae9e260ca469bc
+                  type: number
+                receiverId:
+                  type: number
                 notificationId:
-                  type: string
-                  example: 62a7245822f8e6531e205d54
+                  type: number
+              required:
+                - meetingId
+                - receiverId
+                - notificationId
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
+              receiverId: 62bd5e41d66b03eafa8e40d8
+              notificationId: 60b78980a2ae9e260ca469ef
       responses:
         "200":
           description: OK
@@ -344,13 +379,13 @@ paths:
                   error:
                     type: string
                     example: Error description
-  /api/tools:
+  /api/sixhats/start:
     post:
-      summary: Start a tool
-      description: Starts a tool for a meeting. Currently only devils hats is
-        supported. The hats will be automatically assigned to the members
+      summary: Start six hats
+      description: Starts six hats for a meeting. The hats will be automatically
+        randomly assigned to the members
       tags:
-        - Tools
+        - Six Hats
       requestBody:
         required: true
         content:
@@ -360,6 +395,279 @@ paths:
               properties:
                 meetingId:
                   type: string
+              required:
+                - meetingId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    $ref: "#/paths/~1api~1meetings/post/requestBody/content/application~1json/schem\
+                      a"
+                  example:
+                    id: 60b78980a2ae9e260ca469ba
+                    meetingName: Hans Dampf's Meeting
+                    createdAt: 2022-05-27T16:49:16.316Z
+                    currentTool: devils_advocat
+                    done: false
+                    members:
+                      - id: 60b78980a2ae9e260ca469bc
+                        name: Hans Dampf
+                        hat: red
+                        notifications:
+                          - id: 62a72af0bcae5a9404346b70
+                            message: This is an example message
+                            createdAt: 2022-05-27T16:49:16.316Z
+                    timer:
+                      active: true
+                      time: 1656577859303
+                    surveys:
+                      - id: 62bd63bdf51bdc7f9adcfa76
+                        question: This is an example question.
+                        creatorName: Nojo
+                        choices:
+                          - Option 1
+                          - Definitely no
+                          - Another option
+                        answers: []
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/sixhats/stop:
+    post:
+      summary: Stop six hats
+      description: Stop six hats in a meeting. This endpoint will clear all hats for
+        all members and clear the currentTool.
+      tags:
+        - Six Hats
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
+              required:
+                - meetingId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                  mple"
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/surveys:
+    post:
+      summary: Start survey
+      description: Starts a survey in a meeting.
+      tags:
+        - Surveys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                question:
+                  type: string
+                creatorName:
+                  type: string
+                choices:
+                  type: string
+                answers:
+                  type: array
+              required:
+                - question
+                - creatorName
+                - choices
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
+              question: This is an example question
+              creatorName: Nojo
+              choices:
+                - Option 1
+                - Definitely no
+                - Another option
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    id: 60b78980a2ae9e260ca469ef
+                    question: This is an example question
+                    creatorName: Nojo
+                    choices:
+                      - Option 1
+                      - Definitely no
+                      - Another option
+                    answers: []
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/surveys/answers:
+    post:
+      summary: Submit answer
+      description: Submit an answer to a survey.
+      tags:
+        - Surveys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
+                surveyId:
+                  type: string
+                answers:
+                  type: array
+              required:
+                - meetingId
+                - surveyId
+                - answers
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
+              surveyId: 62b07afdbbb8e4e361ddf63b
+              answers:
+                - memberName: Nojo
+                  answer: Custom Text
+                - memberName: Nojo
+                  answer: Option 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    id: 60b78980a2ae9e260ca469ef
+                    question: This is an example question
+                    creatorName: Nojo
+                    choices:
+                      - Option 1
+                      - Definitely no
+                      - Another option
+                    answers:
+                      - memberName: Nojo
+                        answer: Custom Text
+                      - memberName: Nojo
+                        answer: Option 1
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/timer/start:
+    post:
+      summary: Start timer
+      description: Starts a timer in a meeting.
+      tags:
+        - Timer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
+                timestamp:
+                  type: string
+              required:
+                - meetingId
+                - timestamp
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
+              timestamp: 1655733660413
+              message: Can i ask a question?
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schema:
+                    $ref: "#/paths/~1api~1meetings/post/responses/200/content/application~1json/exa\
+                      mple"
+        "400":
+          description: Error occured
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error description
+  /api/timer/stop:
+    post:
+      summary: Stop timer
+      description: Stops the timer for a meeting
+      tags:
+        - Timer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                meetingId:
+                  type: string
+              required:
+                - meetingId
+            example:
+              meetingId: 60b78980a2ae9e260ca469ba
       responses:
         "200":
           description: OK
@@ -372,45 +680,28 @@ paths:
                     id: 60b78980a2ae9e260ca469ba
                     meetingName: Hans Dampf's Meeting
                     createdAt: 2022-05-27T16:49:16.316Z
+                    currentTool: devils_advocat
                     done: false
                     members:
                       - id: 60b78980a2ae9e260ca469bc
                         name: Hans Dampf
-                        hat: ""
-        "400":
-          description: Error occured
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Error description
-  /api/tools/quit:
-    post:
-      summary: Stop tool
-      description: Stop a running tool in a meeting. This endpoint will clear all hats
-        for all members and clear the currentTool.
-      tags:
-        - Tools
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                meetingId:
-                  type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/paths/~1api~1tools/post/responses/200/content/application~1json/schema\
-                  /properties/schema"
+                        hat: red
+                        notifications:
+                          - id: 62a72af0bcae5a9404346b70
+                            message: This is an example message
+                            createdAt: 2022-05-27T16:49:16.316Z
+                    timer:
+                      active: false
+                      time: -1
+                    surveys:
+                      - id: 62bd63bdf51bdc7f9adcfa76
+                        question: This is an example question.
+                        creatorName: Nojo
+                        choices:
+                          - Option 1
+                          - Definitely no
+                          - Another option
+                        answers: []
         "400":
           description: Error occured
           content:

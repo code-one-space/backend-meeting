@@ -1,23 +1,16 @@
 post:
-  summary: Leave meeting
+  summary: Stop timer
+  description: Stops the timer for a meeting
   tags:
-  - Meeting
+  - Timer
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            meetingId:
-              type: string
-              example: 60b78980a2ae9e260ca469ba
-            memberId: 
-              type: string
-              example: 62a717dbc79b4a3cb7cc7cd9
-          required:
-            - meetingId
-            - memberId
+          $ref: "../../definitions/Timer.yaml#/stop"
+        example:
+          $ref: "../../examples/Timer.yaml#/stop"
   responses:
     200:
       description: OK
@@ -26,10 +19,8 @@ post:
           schema:
             type: object
             properties:
-              id:
-                type: string
-                description: Success message
-                example: Left meeting successfuly
+              schema:
+                $ref: "../../examples/Meeting.yaml#/stoppedTimer"
     400:
       description: Error occured
       content: 

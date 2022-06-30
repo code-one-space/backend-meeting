@@ -1,7 +1,7 @@
 POST http://localhost:7071/api/surveys
 
 {
-    "meetingId": "62b07aecbbb8e4e361ddf639",
+    "meetingId": "62bd63bdf51bdc7f9adcfa76",
     "question": "This is an example question. What do you think?",
     "creatorName": "Nojo",
     "choices": [
@@ -17,7 +17,7 @@ POST http://localhost:7071/api/surveys
 POST https://sep-nojo-test.azurewebsites.net/api/surveys
 
 {
-    "meetingId": "62a707677939ed0a34c324b2",
+    "meetingId": "62bd63bdf51bdc7f9adcfa76",
     "question": "This is an example question. What do you think?",
     "creatorName": "Nojo",
     "choices": [

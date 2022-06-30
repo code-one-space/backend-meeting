@@ -14,8 +14,12 @@ properties:
     type: array
   currentTool:
     type: string
+  timer:
+    type: object
+    properties:
+      active:
+        type: boolean
+      time:
+        type: number
 required:
 - meetingName
-
-example:
-  $ref: "../examples/Meeting.yaml#/value"

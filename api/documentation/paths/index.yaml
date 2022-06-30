@@ -9,8 +9,20 @@
 
 /api/notifications:
   $ref: ./notifications/notifications.yaml
+/api/notifications/delete:
+  $ref: ./notifications/deleteNotifications.yaml
 
-/api/tools:
-  $ref: ./tools/tool_start.yaml
-/api/tools/quit:
-  $ref: ./tools/tool_quit.yaml
+/api/sixhats/start:
+  $ref: ./sixhats/sixhats_start.yaml
+/api/sixhats/stop:
+  $ref: ./sixhats/sixhats_stop.yaml
+
+/api/surveys:
+  $ref: ./surveys/survey_start.yaml
+/api/surveys/answers:
+  $ref: ./surveys/survey_submit_answer.yaml
+
+/api/timer/start:
+  $ref: ./timer/timer_start.yaml
+/api/timer/stop:
+  $ref: ./timer/timer_stop.yaml

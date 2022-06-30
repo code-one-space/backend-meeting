@@ -4,12 +4,10 @@ value:
   receiverId: 62bd5e41d66b03eafa8e40d8
   message: Come on, time's up!
   
-create:
+start:
   meetingId: 60b78980a2ae9e260ca469ba
-  receiverId: 62bd5e41d66b03eafa8e40d8
+  timestamp: 1655733660413
   message: Can i ask a question?
 
-delete:
+stop:
   meetingId: 60b78980a2ae9e260ca469ba
-  receiverId: 62bd5e41d66b03eafa8e40d8
-  notificationId: 60b78980a2ae9e260ca469ef

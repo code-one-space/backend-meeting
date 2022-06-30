@@ -17,6 +17,9 @@ post:
               type: string
               example: John Doe
               description: Must be between 2 and 30 characters (both ends inclusive)
+          required:
+          - meetingId
+          - memberName
   responses:
     200:
       description: OK

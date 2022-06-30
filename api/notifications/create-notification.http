@@ -11,6 +11,7 @@ POST http://localhost:7071/api/notifications
 POST https://sep-nojo-test.azurewebsites.net/api/notifications
 
 {
-    "meetingId": "629625f06218d4201eb4a1fd",
-    "creatorId": "629625f06218d4201eb4a1fe"
+    "meetingId": "62b075005386c6afbf17be19",
+    "receiverId": "62b075135386c6afbf17be1a",
+    "message": "Kuchen uwu"
 }

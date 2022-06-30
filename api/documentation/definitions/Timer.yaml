@@ -1,0 +1,18 @@
+start:
+  type: object
+  properties:
+    meetingId:
+      type: string
+    timestamp:
+      type: string
+  required:
+  - meetingId
+  - timestamp
+
+stop:
+  type: object
+  properties:
+    meetingId:
+      type: string
+  required:
+  - meetingId

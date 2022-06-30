@@ -1,21 +1,31 @@
-type: object
-properties:
-  id:
-    type: string
-  memberId:
-    type: string
-  meetingName:
-    type: string
-  createdAt:
-    type: string
-  done:
-    type: boolean
-  members:
-    type: array
-  currentTool:
-    type: string
-required:
-- meetingName
+value:
+  type: object
+  properties:
+    id:
+      type: string
+    meetingId:
+      type: string
+    receiverId:
+      type: string
+    createdAt:
+      type: string
+    message:
+      type: string
+  required:
+  - meetingId
+  - receiverId
+  - message
 
-example:
-  $ref: "../examples/Meeting.yaml#/value"
+delete:
+  type: object
+  properties:
+    meetingId:
+      type: number
+    receiverId: 
+      type: number
+    notificationId:
+      type: number
+  required:
+  - meetingId
+  - receiverId
+  - notificationId

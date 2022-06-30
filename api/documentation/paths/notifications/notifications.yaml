@@ -8,14 +8,16 @@ post:
     content:
       application/json:
         schema:
-          $ref: "../../definitions/Notification.yaml"
+          $ref: "../../definitions/Notification.yaml#/value"
+        example:
+          $ref: "../../examples/Notification.yaml#/create"
   responses:
     200:
       description: OK
       content: 
         "application/json":
           schema:
-            $ref: "../../definitions/Notification.yaml"
+            $ref: "../../definitions/Notification.yaml#/value"
           example:
             $ref: "../../examples/Notification.yaml#/value"
     422:
@@ -27,49 +29,9 @@ post:
             properties:
               error:
                 type: string
-                example: "creatorName is missing"
+                example: "meetingId is invalid"
     500:
       description: Internal server error
-      content: 
-        "application/json":
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                example: Error description
-
-delete:
-  summary: Delete Notification
-  description: Delete a notification after a member has seen it
-  tags:
-  - Notifications
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            meetingId:
-              type: string
-              example: 60b78980a2ae9e260ca469ba
-            memberId: 
-              type: string
-              example: 60b78980a2ae9e260ca469bc
-            notificationId:
-              type: string
-              example: 62a7245822f8e6531e205d54
-  responses:
-    200:
-      description: OK
-      content: 
-        "application/json":
-          schema:
-            type: string
-            example: success
-    400:
-      description: Error occured
       content: 
         "application/json":
           schema:
