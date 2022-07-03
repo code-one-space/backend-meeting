@@ -28,6 +28,7 @@ export interface Meeting {
     members: Array<Member>;
     currentTool: string;
     time: TimeInfo;
+    debug: boolean;
 }
 
 export interface Notification {

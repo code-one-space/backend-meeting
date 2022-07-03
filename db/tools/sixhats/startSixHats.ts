@@ -23,12 +23,13 @@ export async function startSixHats(meetingId: ObjectId): Promise<Meeting> {
     res = await collections.meetings.findOneAndUpdate({ _id: meetingId }, {
         $set: {
             members: res.members,
-            currentTool: "devils_advocat"
+            currentTool: "devils_advocat",
+            debug: Math.random() <= 0.34
         }
     },
-    {
-        returnDocument: "after"
-    }) as any
+        {
+            returnDocument: "after"
+        }) as any
 
     return res?.value
 }
@@ -46,36 +47,44 @@ function addHats(res: any) {
         hats.sort((a, b) => 0.5 - Math.random());
 
         // fixed random for presentations
+        if(res.debug) {
+            if(member.name.toLocaleLowerCase() == "janik") {
+                member.hat = "red"
+                hats = hats.filter(x => x != "red")
+                continue
+            }
+    
+            if(member.name.toLocaleLowerCase() == "koutaiba" || member.name.toLocaleLowerCase() == "ko") {
+                member.hat = "yellow"
+                hats = hats.filter(x => x != "yellow")
+                continue
+            }
 
-        // if(member.name == "Janik") {
-        //     member.hat = "yellow"
-        //     hats = hats.filter(x=>x!="yellow")
-        //     continue
-        // }
-
-        // if(member.name == "Koutaiba") {
-        //     member.hat = "red"
-        //     hats = hats.filter(x=>x!="red")
-        //     continue
-        // }
-
-        // if(member.name == "Justin") {
-        //     member.hat = "green"
-        //     hats = hats.filter(x=>x!="green")
-        //     continue
-        // }
-
-        // if(member.name == "Immanuel") {
-        //     member.hat = "black"
-        //     hats = hats.filter(x=>x!="black")
-        //     continue
-        // }
-
-        // if(member.name == "Nojo") {
-        //     member.hat = "white"
-        //     hats = hats.filter(x=>x!="white")
-        //     continue
-        // }
+            if(member.name.toLocaleLowerCase() == "vero" || member.name.toLocaleLowerCase() == "veronique" || member.name.toLocaleLowerCase() == "lisa"  || member.name.toLocaleLowerCase() == "chris") {
+                member.hat = "black"
+                hats = hats.filter(x => x != "black")
+                continue
+            }
+    
+            if(member.name.toLocaleLowerCase() == "justin") {
+                member.hat = "white"
+                hats = hats.filter(x => x != "white")
+                continue
+            }
+    
+            if(member.name.toLocaleLowerCase() == "immanuel") {
+                member.hat = "blue"
+                hats = hats.filter(x => x != "blue")
+                continue
+            }
+    
+            if(member.name.toLocaleLowerCase() == "nojo" || member.name.toLocaleLowerCase() == "norman") {
+                member.hat = "green"
+                hats = hats.filter(x => x != "green")
+                continue
+            }
+        }
+        
         member.hat = hats.pop()
     }
 }

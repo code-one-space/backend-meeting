@@ -2,8 +2,8 @@
 POST http://localhost:7071/api/meetings/join
 
 {
-    "meetingId": "62b07aecbbb8e4e361ddf639",
-    "memberName": "Definitely not Nojo uwu"
+    "meetingId": "62c18073bf800f767aad34f8",
+    "memberName": "Meow Deow"
 }
 
 

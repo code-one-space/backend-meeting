@@ -1,5 +1,5 @@
 # GET http://localhost:7071/api/meetings/join
-GET http://localhost:7071/api/meetings/62b07e2f45f926d56a7ea626
+GET http://localhost:7071/api/meetings
 
 ### Azure Deployment
 

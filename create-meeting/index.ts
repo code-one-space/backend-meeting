@@ -15,7 +15,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         timer: {
             active: false,
             time: -1
-        }
+        },
+        debug: true
     }
 
     const result = createMeetingSchema.validate(newMeeting)

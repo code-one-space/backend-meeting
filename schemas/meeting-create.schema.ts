@@ -19,5 +19,6 @@ export let createMeetingSchema = Joi.object({
     timer: Joi.object({
         active: Joi.boolean(),
         time: Joi.number()
-    })
+    }),
+    debug: Joi.boolean()
 })
