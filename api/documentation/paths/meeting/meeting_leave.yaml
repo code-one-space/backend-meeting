@@ -15,6 +15,9 @@ post:
             memberId: 
               type: string
               example: 62a717dbc79b4a3cb7cc7cd9
+          required:
+            - meetingId
+            - memberId
   responses:
     200:
       description: OK

@@ -1,0 +1,29 @@
+POST http://localhost:7071/api/surveys
+
+{
+    "meetingId": "62bd63bdf51bdc7f9adcfa76",
+    "question": "This is an example question. What do you think?",
+    "creatorName": "Nojo",
+    "choices": [
+        "Y e s",
+        "No",
+        "Absolutely not",
+        "Sure..?"
+    ]
+}
+
+### Azure Deployment
+
+POST https://sep-nojo-test.azurewebsites.net/api/surveys
+
+{
+    "meetingId": "62bd63bdf51bdc7f9adcfa76",
+    "question": "This is an example question. What do you think?",
+    "creatorName": "Nojo",
+    "choices": [
+        "Y e s",
+        "No",
+        "Absolutely not",
+        "Sure..?"
+    ]
+}

@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ObjectId } from "mongodb"
-import { addNotification } from "../db/meetings"
-import { notificationCreateSchema } from "../schemas/notification-create.schema"
+import { addNotification } from "../db"
+import { createNotificationSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
@@ -13,9 +13,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         message: req.body.message?.trim() ?? "",
     }
 
-    console.log(notification)
-
-    const validateResult = notificationCreateSchema.validate(notification)
+    const validateResult = createNotificationSchema.validate(notification)
     if (validateResult.error) {
         context.res = {
             status: 422,
@@ -28,7 +26,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if (!!!Object.keys(addResult ?? {}).length) {
         context.res = {
             status: 422,
-            body: "Could not send notification2",
+            body: "Could not send notification",
         }
         return
     }

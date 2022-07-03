@@ -1,0 +1,30 @@
+post:
+  summary: Start timer
+  description: Starts a timer in a meeting.
+  tags:
+  - Timer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../definitions/Timer.yaml#/start"
+        example:
+          $ref: "../../examples/Timer.yaml#/start"
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          example:
+            $ref: "../../examples/Meeting.yaml#/value"
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

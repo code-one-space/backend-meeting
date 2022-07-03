@@ -1,0 +1,32 @@
+post:
+  summary: Start survey
+  description: Starts a survey in a meeting.
+  tags:
+  - Surveys
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../definitions/Survey.yaml#/value"
+        example:
+          $ref: "../../examples/Survey.yaml#/create"
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            $ref: "../../definitions/Meeting.yaml"
+          example:
+            $ref: "../../examples/Meeting.yaml#/value"
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

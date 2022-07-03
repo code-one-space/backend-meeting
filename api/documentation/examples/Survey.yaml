@@ -1,0 +1,54 @@
+value:
+  id: 60b78980a2ae9e260ca469ef
+  question: This is an example question
+  creatorName: Nojo
+  choices: [
+    "Option 1",
+    "Definitely no",
+    "Another option"
+  ]
+  answers: []
+  
+create:
+  meetingId: 60b78980a2ae9e260ca469ba
+  question: This is an example question
+  creatorName: Nojo
+  choices: [
+    "Option 1",
+    "Definitely no",
+    "Another option"
+  ]
+
+submitAnswer:
+  meetingId: 60b78980a2ae9e260ca469ba
+  surveyId: 62b07afdbbb8e4e361ddf63b
+  answers: [
+    {
+      memberName: Nojo,
+      answer: Custom Text
+    },
+    {
+      memberName: Nojo,
+      answer: Option 1
+    }
+  ]
+
+withAnswers:
+  id: 60b78980a2ae9e260ca469ef
+  question: This is an example question
+  creatorName: Nojo
+  choices: [
+    "Option 1",
+    "Definitely no",
+    "Another option"
+  ]
+  answers: [
+    {
+      memberName: Nojo,
+      answer: Custom Text
+    },
+    {
+      memberName: Nojo,
+      answer: Option 1
+    }
+  ]

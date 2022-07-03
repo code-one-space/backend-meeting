@@ -1,0 +1,30 @@
+post:
+  summary: Stop timer
+  description: Stops the timer for a meeting
+  tags:
+  - Timer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../definitions/Timer.yaml#/stop"
+        example:
+          $ref: "../../examples/Timer.yaml#/stop"
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          example:
+            $ref: "../../examples/Meeting.yaml#/stoppedTimer"
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

@@ -1,16 +1,16 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { leaveMeeting } from "../db/meetings"
+import { leaveMeeting } from "../db"
 import { ObjectId } from "mongodb"
-import { meetingLeaveSchema } from "../schemas/meeting-leave.schema"
+import { leaveMeetingSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     const leave = {
-        meetingId: req.body.meetingId ?? "",
-        memberId: req.body.memberId ?? "",
+        meetingId: new ObjectId(req.body?.meetingId.trim()),
+        memberId: new ObjectId(req.body?.memberId.trim()),
     }
 
-    const result = meetingLeaveSchema.validate(leave)
+    const result = leaveMeetingSchema.validate(leave)
     if (result.error) {
         context.res = {
             status: 422,

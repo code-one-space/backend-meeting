@@ -1,0 +1,35 @@
+POST http://localhost:7071/api/surveys/answers
+
+{
+    "meetingId": "62bd63bdf51bdc7f9adcfa76",
+    "surveyId": "62bd74d1650bac18a5179198",
+    "answers": [
+        {
+            "memberName": "Nojo",
+            "answer": "Custom Text"
+        },
+        {
+            "memberName": "Nojo",
+            "answer": "Choice 1 from UI"
+        }
+    ]
+}
+
+### Azure Deployment
+
+POST https://sep-nojo-test.azurewebsites.net/api/surveys/answers
+
+{
+    "meetingId": "62bd63bdf51bdc7f9adcfa76",
+    "surveyId": "62bd74d1650bac18a5179198",
+    "answers": [
+        {
+            "memberName": "Nojo",
+            "answer": "Custom Text"
+        },
+        {
+            "memberName": "Nojo",
+            "answer": "Choice 1 from UI"
+        }
+    ]
+}

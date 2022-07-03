@@ -2,6 +2,9 @@
 db/mongodb-client.ts
 .vscode
 
+# tests
+__tests__
+
 # Logs
 logs
 *.log

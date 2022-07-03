@@ -1,0 +1,38 @@
+post:
+  summary: Stop six hats
+  description: Stop six hats in a meeting. This endpoint will clear all hats for all members and clear the currentTool.
+  tags:
+  - Six Hats
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            meetingId:
+              type: string
+          required:
+          - meetingId
+        example:
+          $ref: "../../examples/Sixhats.yaml#/stop"
+  responses:
+    200:
+      description: OK
+      content: 
+        "application/json":
+          schema:
+            $ref: "../../definitions/Meeting.yaml"
+          example:
+            $ref: "../../examples/Meeting.yaml#/value"
+
+    400:
+      description: Error occured
+      content: 
+        "application/json":
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

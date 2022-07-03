@@ -1,14 +1,14 @@
-DELETE http://localhost:7071/api/notifications
+POST http://localhost:7071/api/notifications/delete
 
 {
-    "meetingId": "62a740700b2f37e088c34deb",
-    "receiverId": "62a740700b2f37e088c34dea",
-    "notificationId": "62a745944618188f9b81ed68"
+    "meetingId": "62b075005386c6afbf17be19",
+    "receiverId": "62b075135386c6afbf17be1a",
+    "notificationId": "62b075950566f8a6c08b1bc3"
 }
 
 ###
 
-DELETE https://sep-nojo-test.azurewebsites.net/api/notifications
+POST https://sep-nojo-test.azurewebsites.net/api/notifications/delete
 
 {
     "meetingId": "629625f06218d4201eb4a1fd",

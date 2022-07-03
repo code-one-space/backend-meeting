@@ -1,0 +1,30 @@
+post:
+  summary: Submit answer
+  description: Submit an answer to a survey.
+  tags:
+  - Surveys
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../definitions/Survey.yaml#/submitAnswer"
+        example:
+          $ref: "../../examples/Survey.yaml#/submitAnswer"
+  responses:
+    200:
+      description: OK
+      content: 
+        application/json:
+          example:
+            $ref: "../../examples/Meeting.yaml#/withAnswers"
+    400:
+      description: Error occured
+      content: 
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Error description

@@ -1,0 +1,45 @@
+value:
+  type: object
+  properties:
+    id:
+      type: string
+    question:
+      type: string
+    creatorName:
+      type: string
+    choices:
+      type: string
+    answers:
+      type: array
+  required:
+  - question
+  - creatorName
+  - choices
+
+submitAnswer:
+  type: object
+  properties:
+    meetingId:
+      type: string
+    surveyId:
+      type: string
+    answers:
+      type: array
+  required:
+  - meetingId
+  - surveyId
+  - answers
+
+start:
+  type: object
+  properties:
+    meetingId:
+      type: string
+    question:
+      type: string
+    creatorName:
+      type: string
+    choices:
+      type: array
+      items:
+        type: string

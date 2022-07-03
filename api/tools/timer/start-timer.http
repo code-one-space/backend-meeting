@@ -1,0 +1,15 @@
+POST http://localhost:7071/api/timer/start
+
+{
+    "meetingId": "62b07aecbbb8e4e361ddf639",
+    "timestamp": 1655733660413
+}
+
+### Azure Deployment
+
+POST https://sep-nojo-test.azurewebsites.net/api/timer/start
+
+{
+    "meetingId": "6294ad903327a79e34c33f0b",
+    "timestamp": 1655719710314
+}

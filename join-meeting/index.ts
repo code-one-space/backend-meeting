@@ -1,16 +1,16 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { joinMeeting } from "../db/meetings"
+import { joinMeeting } from "../db"
 import { ObjectId } from "mongodb"
-import { meetingJoinSchema } from "../schemas/meeting-join.schema"
+import { joinMeetingSchema } from "../schemas"
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     const join = {
-        meetingId: req.body.meetingId ?? "",
-        memberName: req.body.memberName?.trim() ?? "",
+        meetingId: new ObjectId(req.body?.meetingId.trim()),
+        memberName: req.body?.memberName.trim(),
     }
 
-    const result = meetingJoinSchema.validate(join)
+    const result = joinMeetingSchema.validate(join)
     if (result.error) {
         context.res = {
             status: 422,
@@ -24,7 +24,16 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         name: join.memberName,
         hat: ""
     }
-    const meeting = await joinMeeting(new ObjectId(join.meetingId), member)
+    const meeting = await joinMeeting(join.meetingId, member)
+
+    if(!meeting) {
+        context.res = {
+            status: 422,
+            body: "Failed to join meeting",
+        }
+        return
+    }
+
     meeting.memberId = member.id
 
     context.res = {

@@ -1,0 +1,14 @@
+# POST http://localhost:7071/api/todos
+
+POST http://localhost:7071/api/sixhats/stop
+
+{
+    "meetingId": "62c18073bf800f767aad34f8"
+}
+
+###
+POST https://sep-nojo-test.azurewebsites.net/api/sixhats/stop
+
+{
+    "meetingId": "6294b371dd7aa23a8a41fcd2"
+}

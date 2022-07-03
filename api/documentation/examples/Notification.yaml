@@ -1,47 +1,15 @@
 value:
-  id: 60b78980a2ae9e260ca469ba
-  meetingName: Hans Dampf's Meeting
-  createdAt: "2022-05-27T16:49:16.316Z"
-  done: false
-  members: [
-    {
-      id: 60b78980a2ae9e260ca469bc,
-      name: Hans Dampf,
-      hat: ""
-    }
-  ]
+  id: 60b78980a2ae9e260ca469ef
+  meetingId: 60b78980a2ae9e260ca469ba
+  receiverId: 62bd5e41d66b03eafa8e40d8
+  message: Come on, time's up!
   
 create:
-  meetingName: Hans Dampf's Meeting
-  creatorName: Hans Dampf
+  meetingId: 60b78980a2ae9e260ca469ba
+  receiverId: 62bd5e41d66b03eafa8e40d8
+  message: Can i ask a question?
 
-joined:
-  id: 60b78980a2ae9e260ca469ba
-  meetingName: Hans Dampf's Meeting
-  createdAt: "2022-05-27T16:49:16.316Z"
-  done: false
-  members: [
-    {
-      id: 60b78980a2ae9e260ca469bc,
-      name: Hans Dampf,
-      hat: ""
-    },
-    {
-      id: 62a717dbc79b4a3cb7cc7cd9,
-      name: John Doe,
-      hat: ""
-    }
-  ]
-
-withHats:
-  id: 60b78980a2ae9e260ca469ba
-  meetingName: Hans Dampf's Meeting
-  createdAt: "2022-05-27T16:49:16.316Z"
-  done: false
-  members: [
-    {
-      id: 60b78980a2ae9e260ca469bc,
-      name: Hans Dampf,
-      hat: "red"
-    }
-  ]
+delete:
+  meetingId: 60b78980a2ae9e260ca469ba
+  receiverId: 62bd5e41d66b03eafa8e40d8
+  notificationId: 60b78980a2ae9e260ca469ef
